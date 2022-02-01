@@ -1,0 +1,11 @@
+p ∨ p ⊢ p
+{
+    1. p V p            premise
+    2. {
+        3. p            assume
+    }
+    4. {
+        5. p            assume
+    }
+    6. p                Ve 1 2 4
+}

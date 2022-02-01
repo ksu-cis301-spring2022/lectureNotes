@@ -1,0 +1,5 @@
+p V (q ^ r) |- (p ∨ q) ∧ (p ∨ r)
+{
+    1. p V (q ^ r)                  premise
+
+}
