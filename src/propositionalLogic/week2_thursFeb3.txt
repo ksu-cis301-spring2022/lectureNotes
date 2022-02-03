@@ -1,0 +1,142 @@
+HW 2 due by midnight tonight
+
+I'll post HW 3 later today
+
+Exam 1 will be Thursday, February 10
+    -> I'll post review materials by Friday
+
+////////////////////////////////////////////
+
+Implies-introduction, ->i
+
+        {P assume
+         ... Q}
+->i:  -----------
+         P -> Q
+
+
+Idea?
+
+///////////////////////////////
+
+Syntax for using ->i:
+
+p ^ r |- q->p
+{
+    1. p ^ r                premise
+    2. {
+        3. q                assume
+        4. p                ^e1 1
+    }
+    5. q->p                 ->i 2
+}
+
+///////////////////////////////
+
+Logika examples.
+
+q ⊢ p → (q ∧ p)
+
+p → (q → r) ⊢ (p → q) → (p → r)
+
+p V q |- (p -> q) V (q -> p)
+
+//////////////////////////////////
+
+Strategy for using ->i
+
+p -> q -> r |- (p ^ q -> r) ^ (p -> (q ^ r))
+
+How do we start?
+
+//////////////////////////////////
+
+Negation rules in propositional logic.
+
+Not-elimination:
+
+        P    !P
+!e:    ----------
+          _|_
+
+
+_|_ (underscore bar underscore) - bottom operator
+means contradiction
+
+Not-introduction:
+
+        {P assume
+          ... _|_ }
+!i:    -------------
+           !P
+
+
+Real-world examples:
+1) I am both standing and not standing
+
+What can I conclude?
+    things are bad, contradiction
+
+
+
+2) If I am awake, then I am standing.
+   I am not standing.
+
+What can I conclude?
+
+/////////////////////////
+
+Trying to prove something with NOT as top-level operator?
+
+
+p->q, !q |- !p
+
+p ⊢ ¬ ¬ p
+
+p → ¬q ⊢ ¬(p ∧ q)
+
+!p ^ !q |- !(p V q)
+
+p -> q |- !q -> !p (what is this?)
+
+////////////////////////////////////////////////
+
+(We still have two more negation rules we'll save
+until after Exam 1)
+
+////////////////////////////////////////////////
+
+Strategies for proofs:
+
+1) Extract anything you can from the premises
+    (->e, ^e)
+
+2) Look at the top-level operator of what you want
+    to prove.
+
+    Is it an ->?
+        open a subproof, assume left side,
+        try to get to right side, use ->i
+
+    Is it a !?
+        open a subproof, assume the thing IS true
+        try to get a contradiction
+        conclude !(something) using !i
+
+    Is it something else?
+        V : a lot of times, have V statements as premises,
+            use Ve
+        ^: think of them as two separate proofs,
+            then put together with ^i
+
+3) Repeat the process with subproofs -- extract what
+    you can, and look at the top-level operator of
+    what you are trying to prove WITHIN that subproof
+
+
+Bigger example:
+
+|- (p ∧ q → r) ∧ (p → q) → (p → r)
+
+How do you think we could prove a sequent using truth
+    tables?

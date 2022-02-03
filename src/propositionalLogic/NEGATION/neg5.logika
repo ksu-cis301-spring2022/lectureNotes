@@ -1,0 +1,24 @@
+//contrapositive
+
+//p: It is cold
+//q: I will wear a coat
+
+//Premise: If it is cold, then I will wear a coat
+//Conclusion: If I don't wear a coat, then it's not cold
+
+p -> q |- !q -> !p
+{
+    1. p -> q                   premise
+    2. {
+        3. !q                   assume
+        4. {
+            5. p                assume
+            6. q                ->e 1 5
+            7. _|_              !e 6 3
+            //want: contradiction
+        }
+        8. !p                   !i 4
+        //want to get: !p
+    }
+    9. !q -> !p                 ->i 2
+}

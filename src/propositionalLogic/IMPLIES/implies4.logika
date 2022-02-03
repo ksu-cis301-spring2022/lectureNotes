@@ -1,1 +1,9 @@
 q ⊢ p → (q ∧ p)
+{
+    1. q                premise
+    2. {
+        3. p            assume
+        4. q ^ p        ^i 1 3
+    }
+    5. p -> (q ^ p)     ->i 2
+}

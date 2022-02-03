@@ -1,0 +1,18 @@
+|- (p ∧ q → r) ∧ (p → q) → (p → r)
+{
+    1. {
+        2. (p ∧ q → r) ∧ (p → q)            assume
+        3. p ∧ q → r                        ^e1 2
+        4. p -> q                           ^e2 2
+        5. {
+            6. p                            assume
+            7. q                            ->e 4 6
+            8. p ^ q                        ^i 6 7
+            9. r                            ->e 3 8
+            //want to get r
+        }
+        10. p->r                            ->i 5
+        //want to get: p->r
+    }
+    11. (p ∧ q → r) ∧ (p → q) → (p → r)     ->i 1
+}

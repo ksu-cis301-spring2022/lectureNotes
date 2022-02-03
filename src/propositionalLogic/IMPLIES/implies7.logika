@@ -1,0 +1,17 @@
+//order of operations of premise?
+
+//p -> (q -> r)
+
+p -> q -> r |- (p ^ q -> r)
+{
+    1. p -> q -> r                  premise
+    2. {
+        3. p ^ q                    assume
+        4. p                        ^e1 3
+        5. q                        ^e2 3
+        6. q -> r                   ->e 1 4
+        7. r                        ->e 6 5
+        //want to get to r
+    }
+    8. p ^ q -> r                   ->i 2
+}
