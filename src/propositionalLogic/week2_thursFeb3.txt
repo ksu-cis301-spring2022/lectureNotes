@@ -45,7 +45,7 @@ p V q |- (p -> q) V (q -> p)
 
 Strategy for using ->i
 
-p -> q -> r |- (p ^ q -> r) ^ (p -> (q ^ r))
+p -> q -> r |- (p ^ q -> r)
 
 How do we start?
 
