@@ -1,0 +1,216 @@
+HW 3 due Thursday, February 10
+    (HW 4 will be posted then, due
+    Thursday, February 16)
+
+Exam 1: Thursday, February 10
+    This room
+    9:30-10:45 am
+    No notes/no computers
+
+** I strongly recommend finishing the homework before
+    the exam -- it will help you review **
+
+///////////////////////////////
+
+Office hours: come to ANY times in syllabus
+    (even graders and undergraduate teaching assistants)
+
+Lili Chen: special office hour time Wednesday, February 9
+    4:00-6:00 pm in DUE 1118
+    Exam prep help / HW 3 questions
+
+//////////////////////////////
+
+HW submission: MUST be in specified format
+
+..../tree/(digital fingerprint)
+
+Received a warning on HW 1/HW 2
+
+On future homeworks, links in wrong format will get a 0
+
+///////////////////////////////
+
+How do you think we could prove a sequent using truth
+    tables?
+
+Example:
+
+    p ^ q |- p->q
+
+plug in all truth assignments for premises
+    p^q
+
+want to show that those truth assignments also make
+    the conclusion true
+
+(p^q) -> (p->q)
+
+want this statement to be a tautology
+
+///////////////////////////////
+
+Proving arguments in English.
+
+Suppose we know:
+
+If it is raining or snowing, then it is muddy.
+It is snowing.
+
+We want to prove: It is muddy.
+
+p: it is raining
+q: it is snowing
+r: it is muddy
+
+p V q -> r, q |- r
+{
+    1. p V q -> r           premise
+    2. q                    premise
+    3. p V q                Vi2 2
+    4. r                    ->e 1 3
+}
+
+//////////////////////////////
+
+Last propositional logic proof rules.
+
+(NOT on exam 1 -- but are needed for HW 4)
+
+Bottom-elimination:
+
+          _|_
+_|_e:  ----------
+           R
+
+
+Proof by contradiction (reductio ad absurdum):
+
+       {!P assume
+        ... _|_}
+pbc:  ----------
+          P
+
+//////////////////////////
+
+Demonstrate _|_e rule:
+
+p V q, !q, |- p
+{
+    1. p V q                    premise
+    2. !q                       premise
+    3. {
+        4. p                    assume
+    }
+    5. {
+        6. q                    assume
+        7. _|_                  !e 6 2
+        8. p                    _|_e 7
+    }
+    9. p                        Ve 1 3 5
+}
+
+(what do we do with V statements in a premise?)
+
+Not used as much - just when you need to pull
+    something out of nothing
+
+//////////////////////////
+
+Demonstrate pbc rule (opposite of !i):
+
+!!p |- p
+{
+    1. !!p              premise
+    2. {
+        3. !p           assume
+        4. _|_          !e 3 1
+    }
+    5. p                pbc 2
+}
+
+
+Not used as much as !i, and harder to detect:
+    If you need to prove something involving negation,
+    and it doesn't fit another pattern, try pbc
+
+//////////////////////////
+
+Exam review.
+
+Closed notes/computers.
+Please sit every other chair.
+
+Topics:
+- basic logical reasoning (multiple choice)
+- logic puzzles (multiple choice)
+- truth tables
+- translating to propositional logic
+- proofs in propositional logic (AND, OR, IMPLIES,
+    !i, !e rules)
+
+Multiple choice section + open-ended section
+
+10 multiple choice, 6 open-ended (probably)
+
+//////////////////////////////
+
+Types of multiple choice problems:
+- basic logical reasoning (like day 1)
+- logic puzzles (knights and knaves, etc.)
+- logical operator precedence
+- top-level operator
+- other truth table concepts (plugging in T/F values,
+    seeing if something is contradictory/contingent/
+    tautology, satisfiability (at least one truth
+    assignment makes the formula true),
+    seeing whether two statements are equivalent)
+- translating an English sentence to propositional logic
+- what different proof rules do, best approaches to starting a
+    proof, what justification matches a proof step)
+
+/////////////////////////////////////
+
+Types of open-ended problems:
+- completing a truth table (including marking the top-level
+    operator and classifying the formula as contradictory/
+    contingent/tautology)
+- explaining any of the proof rules we've seen
+    - in what situation can they be used?
+    - what is the process of using them?
+    - why does the rule "make sense" as something we can do?
+- finding errors in a proof I give you
+- adding either claims or justification to complete a
+        partial proof
+- completing full propositional logic proofs
+- proofs on English arguments (translation, then proof)
+
+//////////////////////////////////////
+
+How to study
+
+- memorize the truth tables for all operators (!, ^, V, ->)
+- memorize the rules for order of operations
+    which operators are processed first?
+        (), !, ^, V, ->
+    if multiple of the same operator, which is first?
+        ^, V: left to right
+        -> right to left
+        ! right to left
+    which is the top-level operator?
+- memorize the format of Logika truth tables
+- memorize the usage of all proof rules we've covered
+    ^i, ^e1, ^e2, Vi1, Vi2, Ve, ->e, ->i, !e, !i
+    look at online "proof guide"
+- finish HW 3 before the exam
+- complete all quiz problems
+- rework homework problems without looking at the solutions
+- rework all examples from lecture
+    (without looking at solutions)
+
+/////////////////////////////////////////
+
+Review - exam 1 from Fall 2021
+
+(this exam did NOT include !i, !e - refer to HW 3
+    to study for these questions)
