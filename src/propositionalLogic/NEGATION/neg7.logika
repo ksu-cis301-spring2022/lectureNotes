@@ -1,0 +1,33 @@
+p → q ⊢ ¬p ∨ q
+{
+    111. p -> q               premise
+
+    1. {
+        2. !(p V !p)                assume
+        3. {
+            4. !p               assume
+            5. p V !p           Vi2 4
+            6. _|_              !e 5 2
+            //try to get a contradiction
+        }
+        8. p                    pbc 3
+        //could conclude p, with pbc
+
+        //try to get a contradiction
+
+        9. p V !p               Vi1 8
+        10. _|_                 !e 9 2
+    }
+    11. p V !p                  pbc 1
+
+    12. {
+        13. p                   assume
+        14. q                   ->e 111 13
+        15. !p V q              Vi2 14
+    }
+    16. {
+        17. !p                  assume
+        18. !p V q              Vi1 17
+    }
+    19. !p V q                  Ve 11 12 16
+}

@@ -1,0 +1,22 @@
+¬(¬p ∨ ¬q) ⊢ p ∧ q
+//it's not true that I don't have pizza or don't have coke
+
+{
+    1. !(!p V !q)               premise
+    2. {
+        3. !p                   assume
+        4. !p V !q              Vi1 3
+        5. _|_                  !e 4 1
+
+        //want to prove p is true
+        //end in contradiction
+    }
+    6. p                        pbc 2
+    7. {
+        8. !q                   assume
+        9. !p V !q              Vi2 8
+        10. _|_                 !e 9 1
+    }
+    11. q                       pbc 7
+    12. p ^ q                   ^i 6 11
+}
