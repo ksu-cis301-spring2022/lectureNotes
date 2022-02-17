@@ -1,0 +1,39 @@
+|- (p -> q) -> ((!p -> q) -> q)
+{
+    1. {
+        2. !(p V !p)                assume
+        3. {
+            4. !p               assume
+            5. p V !p           Vi2 4
+            6. _|_              !e 5 2
+            //try to get a contradiction
+        }
+        8. p                    pbc 3
+        //could conclude p, with pbc
+
+        //try to get a contradiction
+
+        9. p V !p               Vi1 8
+        10. _|_                 !e 9 2
+    }
+    11. p V !p                  pbc 1
+    12. {
+        13. p -> q                   assume
+        14. {
+            15. !p -> q              assume
+            16. {
+                17. p               assume
+                18. q               ->e 13 17
+            }
+            19. {
+                20. !p              assume
+                21. q               ->e 15 20
+            }
+            22. q                   Ve 11 16 19
+            //want q
+        }
+        23. (!p -> q) -> q          ->i 14
+        //want (!p -> q) -> q
+    }
+    24. (p -> q) -> ((!p -> q) -> q)    ->i 12
+}

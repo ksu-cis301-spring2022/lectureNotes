@@ -1,0 +1,16 @@
+¬ (p ∧ q) |- (p → ¬ q)
+{
+    1. !(p ^ q)             premise
+    2. {
+        3. p                assume
+        4. {
+            5. q            assume
+            6. p ^ q        ^i 3 5
+            7. _|_          !e 6 1
+            //try to get contradiction
+        }
+        8. !q               !i 4
+        //want !q
+    }
+    9. p -> !q              ->i 2
+}
