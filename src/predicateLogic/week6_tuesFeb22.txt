@@ -1,0 +1,523 @@
+HW 5 due Thursday, February 24
+
+//////////////////////////////////
+
+Predicate logic.
+
+Domain: a set of individuals
+
+Predicates: like verbs, or functions with
+    a boolean return type
+
+A (or upside down): For all individuals in the domain
+
+E (or backwards): There exists at least one
+    individual in the domain
+
+
+different ways to type them in Logika
+
+Ctrl->Shift->Command->; and then A
+Ctrl->Shift->Command->; and then E
+
+∀ A all
+∃ E exists
+
+∀
+¬
+
+
+
+///////////////////////////////////////
+
+Domain: living things
+isMouse(x): creature x is a mouse
+inHouse(x): creature x is in the house
+
+
+Squeaky is an individual
+
+
+What do these mean?
+
+isMouse(Squeaky) ^ !inHouse(Squeaky)
+
+Squeaky is a mouse and is not in the house.
+
+
+∃ x isMouse(x)
+
+There exists at least one mouse.
+
+
+!(∃ x isMouse(x))
+
+There is no mouse.
+There do not exist any mice.
+
+
+∃ x !isMouse(x)
+
+There exists at least one creature that is not a mouse.
+
+
+
+∀ x isMouse(x)
+
+All creatures are mice.
+
+
+!(∀ x isMouse(x))
+
+Not all creatures are mice.
+
+
+
+∀ x !isMouse(x)
+
+All creatures are not mice.
+
+
+
+∀ x (isMouse(x) -> inHouse(x))
+
+All mice are in the house.
+
+
+∀ x (isMouse(x) ^ inHouse(x))
+    (almost never want ^ with A - saying both things
+    about all individuals)
+
+
+
+
+
+!(∀ x (isMouse(x) -> inHouse(x)))
+
+Not all mice are in the house.
+
+
+
+
+∀ x (inHouse(x) -> isMouse(x))
+
+Everything in the house is a mouse.
+
+
+
+!(∀ x (inHouse(x) -> isMouse(x)))
+
+Not everything in the house is a mouse.
+
+
+∃ x (isMouse(x) ^ inHouse(x))
+    ...what do we see about the ∃ quantifier?
+
+There is at least one mouse in the house.
+(usually want ^ with E)
+
+
+∃ x (isMouse(x) -> inHouse(x))
+    ...what if our domain has NO mice?
+
+would be true anyway (F->anything is true)
+
+
+
+
+
+
+
+
+
+
+!(∃ x (isMouse(x) ^ inHouse(x)))
+
+There is not a mouse in the house.
+
+
+
+////////////////
+
+How to translate from English to predicate logic:
+
+Every/all/each/any x:
+
+A x (describing entire group)
+
+
+
+Some/at least one/there exists a/there is a:
+
+E x (a statement about one or more)
+
+
+None.../no.../there doesn't exist:
+
+(could we express this with the other quantifier?)
+
+!(E x ...)
+A !(...)
+
+
+
+
+Not every... /not all...:
+
+(could we express this with the other quantifier?)
+
+!(A x ...)
+E x !(...)
+
+
+
+
+
+
+
+
+
+
+////////////////////////////////////
+
+All bunnies are fluffy.
+P(x): x is a bunny
+Q(x): x is fluffy
+
+
+
+
+Some P-ish thing is a Q-ish thing
+P(x): x is a bunny
+Q(x): x is fluffy
+
+Some bunny is fluffy.
+
+E x (P(x) ^ Q(x))
+
+
+
+No P-ish thing is a Q-ish thing
+P(x): x is a bunny
+Q(x): x is fluffy
+
+No bunny is fluffy.
+
+!(E x (P(x) ^ Q(x))
+
+
+
+
+
+///////////////////////
+
+DeMorgan's laws for quantifiers
+
+There does not exist a P
+    --> how else could we write this?
+    --> two (equivalent) translations?
+
+
+
+
+P does not hold for all x
+    --> how else could we write this?
+    --> two (equivalent) translations?
+
+
+
+
+
+///////////////////
+More examples.
+
+Domain: people
+
+K(x) means x is a kid
+M(x) means x like marshmallows
+
+
+
+No kids like marshmallows.
+
+!(E x (K(x) ^ M(x))
+A x !(K(x) -> M(x))
+
+
+
+Not all kids like marshmallows.
+
+!(A x (K(x) -> M(x))
+E x (K(x) ^ !M(x))
+
+
+
+Everyone who likes marshmallows is a kid.
+
+A x (M(x) -> K(x))
+
+
+
+
+Some people who like marshmallows are not kids.
+
+E x (M(x) ^ !K(x))
+
+
+
+Some kids don't like marshmallows.
+
+E x (K(x) ^ !M(x)))
+
+
+
+
+Anyone who doesn't like marshmallows is not a kid.
+
+A x (!M(x) -> !K(x))
+
+
+
+
+
+////////////////////////
+
+Translations with more than one quantifier.
+
+--> several of the same quantifier is easier
+
+
+Predicates (domain of shapes):
+isCircle(x): shape x is a circle
+isSquare(x): shape x is a square
+isRectangle(x): shape x is a rectangle
+biggerThan(x, y): shape x has a bigger area than shape y
+
+/////////////
+
+Some circle is bigger than some square.
+
+both are E quantifiers (E circle, E square)
+
+First version, quantifiers out front: prenex form
+
+E x E y isCircle(x) ^ isSquare(y) ^ biggerThan(x, y)
+E x E y isCircle(y) ^ isSquare(x) ^ biggerThan(y, x)
+
+
+OR:
+
+Second version, quantifiers embedded: Aristotlian form
+
+E x (isCircle(x) ^ (E y (isSquare(y) ^ biggerThan(x, y))))
+
+
+
+///////////
+
+Each circle is bigger than every rectangle.
+
+Quantifiers out front:
+
+all circles, all rectangles
+
+A x A y (isCircle(x) ^ isRectangle(y) -> biggerThan(x, y))
+
+
+
+OR:
+
+Quantifiers embedded:
+
+A x (isCircle(x) -> (A y (isRectangle(y) -> biggerThan(x, y))))
+
+
+
+/////////////
+
+How might we systematically translate?
+
+Each circle is bigger than every rectangle.
+
+Each circle is SOMETHING
+For all circles, SOMETHING
+A x (isCircle(x) -> SOMETHING(x))
+
+SOMETHING(x) (x is a particular circle)
+x is bigger than every rectangle
+For each rectangle y, x is bigger than y
+A y (isRectangle(y) -> biggerThan(x, y)) <- this is SOMETHING(X)
+
+
+Plug in:
+A x (isCircle(x) -> (A y (isRectangle(y) -> biggerThan(x, y)))))
+
+
+/////////////
+
+There are (at least) two squares.
+
+Domain: {2x2 square, radius 3 circle, 3x4 rectangle}
+
+E x E y (isSquare(x) ^ isSquare(y))
+
+This is true for our domain, because x and y can
+be the same square
+
+--> what is wrong?
+--> how to fix?
+
+E x E y (isSquare(x) ^ isSquare(y) ^ x != y)
+
+/////////////
+
+There is at most one square.
+
+!(E x E y (isSquare(x) ^ isSquare(y) ^ x != y))
+
+
+
+//////////
+
+Multiple quantifiers, mixed (A and E)
+
+Every circle is bigger than a square
+
+
+How might we translate (use systematic approach)?
+
+For all circles, SOMETHING
+For each circle x, SOMETHING(x)
+A x (isCircle(x) -> SOMETHING(x))
+
+SOMETHING(x): x is a particular circle
+x is bigger than some square
+There is a square y and x is bigger than y
+E y (isSquare(y) ^ biggerThan(x, y)) <- this is SOMETHING(x)
+
+A x (isCircle(x) -> (E y (isSquare(y) ^ biggerThan(x, y)))))
+
+
+//////////
+
+Order matters!
+
+Suppose we have this predicate:
+
+
+
+likes(x, y) : person x likes person y
+
+likes(y, x): not necessarily!
+
+
+Consider these statements:
+
+A x A y likes(x, y)     vs.  A y A x likes(x, y)
+E x E y likes(x, y)     vs.  E y E x likes(x, y)
+
+
+Is there any difference between the pairs?
+NO! order doesn't matter if quantifiers are the same
+
+
+What about:
+
+A x E y likes(x, y)     vs.  E y A x likes(x, y)
+
+
+A x E y likes(x, y)  : (does y change?)
+
+For all people, there is a person that they like.
+
+
+E y A x likes(x, y): (does y change?)
+
+There is a person (the same person!) that everyone likes
+
+
+
+
+
+
+/////////////////////////////////
+
+Domain: animals
+
+E(x): x is an elephant
+H(x): x is a hippo
+W(x, y): x weighs more than y
+
+
+/////////////////////////////////
+
+There is exactly one hippo.
+
+1) There is a hippo
+2) Any other hippo is the same one
+
+Use our systematic approach.
+
+There exists an animal that is a hippo, and SOMETHING
+E x (H(x) ^ SOMETHING(x))
+
+SOMETHING(x): x is a particular hippo
+For each hippo y, x is the same as y
+A y (H(y) -> (x == y)) <- this is SOMETHING(x)
+
+Overall translation:
+E x (H(x) ^ (A y (H(y) -> (x == y))))
+
+/////////////////////////////////
+
+Every elephant is heavier than some hippo.
+
+A x (E(x) -> (E y (H(y) ^ W(x, y))))
+
+
+//////////////////
+There is an elephant that is heavier than all hippos.
+
+E x (E(x) ^ (A y (H(y) -> W(x, y))))
+
+
+/////////////////
+
+No hippo is heavier than every elephant.
+
+NOT (there exists a hippo that is heavier than
+        every elephant)
+
+!(E x (H(x) ^ (A y (E(y) -> W(x, y)))))
+
+
+/////////////////
+
+Evaluating (small) domains.
+
+Domain: the animals in the lists below
+
+Hippos: Hal (3000 lbs), Helga (2200 lbs)
+Elephants: Ed (10000 lbs), Eve (2500 lbs)
+
+Evaluate:
+
+All elephants weigh more than some hippo.
+
+
+A x (E(x) -> (E y H(y) ^ W(x, y)))
+
+
+What values could x have? Any of the 4 animals
+
+x is Hal: true, since Hal is not an elephant (E(x) is false)
+x is Helga: true (Helga not an elephant)
+x is Ed: true (Ed is an elephant, and Ed weighs more than Hal)
+x is Eve: true (Eve is an elephant, and Eve weighs more than Helga)
+
+the statement is true overall
+
+
+/////////////////////////////////////
+
+Next: begin proofs in predicate logic
