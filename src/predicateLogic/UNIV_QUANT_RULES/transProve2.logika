@@ -1,0 +1,22 @@
+A x (S(x) -> Pz(x)), A x (Pz(x) -> D(x)), A x !D(x) |- A x !S(x)
+{
+    1. A x (S(x) -> Pz(x))                  premise
+    2. A x (Pz(x) -> D(x))                  premise
+    3. A x !D(x)                            premise
+    4. {
+        5. p
+        6. S(p) -> Pz(p)                    Ae 1 p
+        7. Pz(p) -> D(p)                    Ae 2 p
+        8. !D(p)                            Ae 3 p
+        9. {
+            10. S(p)                        assume
+            11. Pz(p)                       ->e 6 10
+            12. D(p)                        ->e 7 11
+            13. _|_                         !e 12 8
+            //want: contradiction
+        }
+        14. !S(p)                           !i 9
+        //want: !S(p)
+    }
+    15. A x !S(x)                            Ai 4
+}

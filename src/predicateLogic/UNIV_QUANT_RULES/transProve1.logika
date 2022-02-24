@@ -1,0 +1,30 @@
+//C(x): x likes broccoli
+
+A x (K(x) -> I(x) V C(x)), A x (K(x) -> !C(x)) |- A x (K(x) -> I(x))
+{
+    1. A x (K(x) -> I(x) V C(x))            premise
+    2. A x (K(x) -> !C(x))                  premise
+    3. {
+        4. p
+        5. K(p) -> I(p) V C(p)              Ae 1 p
+        6. K(p) -> !C(p)                    Ae 2 p
+        7. {
+            8. K(p)                         assume
+            9. I(p) V C(p)                  ->e 5 8
+            10. !C(p)                       ->e 6 8
+            11. {
+                12. I(p)                    assume
+            }
+            13. {
+                14. C(p)                    assume
+                15. _|_                     !e 14 10
+                16. I(p)                    _|_e 15
+            }
+            17. I(p)                        Ve 9 11 13
+            //want: I(p)
+        }
+        18. K(p) -> I(p)                    ->i 7
+        // want: K(p) -> I(p) (need to prove an implies!)
+    }
+    19. A x (K(x) -> I(x) )                 Ai 3
+}

@@ -1,0 +1,23 @@
+A x (P(x) -> Q(x) V K(x)), A y P(y) |- A n (Q(n) V K(n))
+{
+    1. A x (P(x) -> Q(x) V K(x))            premise
+    2. A y P(y)                             premise
+    3. {
+        4. randomStudent
+        5. P(randomStudent) -> Q(randomStudent) V K(randomStudent)  Ae 1 randomStudent
+        6. P(randomStudent)                     Ae 2 randomStudent
+        7. Q(randomStudent) V K(randomStudent)  ->e 5 6
+
+        //want: Q(randomStudent) V K(randomStudent)
+    }
+    8. A n (Q(n) V K(n))                        Ai 3
+}
+
+//P(x): x is a student
+//Q(x): x has a phone
+//K(x): x has a laptop
+
+//all students have a phone or a laptop
+//everyone is a student
+
+//everyone has a phone or a laptop
