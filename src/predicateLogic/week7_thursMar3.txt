@@ -1,0 +1,60 @@
+HW 6 due Thursday, March 3
+
+Exam 2 will be Thursday, March 10
+    - more details posted by the end of the week
+
+//////////////////////////////////////
+
+More equivalences:
+
+¬ (∀x P(x)) is equivalent to ∃x ¬ P(x)
+
+
+A x P(x) -> !Q(x) is equivalent to !(E x P(x) ^ Q(x))
+
+
+/////////////////////////////////////
+
+Mathematical induction
+
+/////////////////////////////////////
+
+(Or next Tues?)
+
+Multiple variables/quantifiers
+
+P(x, y): person x likes person y
+
+(everybody likes everybody)
+
+A x (A y P(x, y)) |- A y (A x P(y, x))
+
+process the premise from the outside in
+- first introduce an individual in a block,
+    plug into the x in the premise
+- next introduce a second individual in a nested block,
+    plug into the y in the premise
+
+- use Ai to build back from the inside out
+
+(every person likes someone)
+
+////////////////////////////////////////
+
+
+(need to make more files for below)
+
+E x (E y (P(x, y)) |- E y (E x (P(x, y))
+
+///////////////////////////////////////////////
+
+
+A x (A y C(x) -> D(y)), E x C(x)  |- A y D(y)
+
+
+/////////////////////////////////////////////
+
+
+E y (A x P(x, y)) |- A x (E y P(x, y))
+
+Would we be able to prove the other direction?

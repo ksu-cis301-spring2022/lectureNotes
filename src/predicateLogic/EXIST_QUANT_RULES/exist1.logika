@@ -1,0 +1,5 @@
+Human(Socrates) |- E x (Human(x))
+{
+    1. Human(Socrates)              premise
+    2. E x (Human(x))               Ei 1 Socrates
+}

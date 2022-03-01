@@ -1,0 +1,194 @@
+HW 6 due Thursday, March 3
+
+Exam 2 will be Thursday, March 10
+    - more details posted by the end of the week
+    - can bring one 8.5"x11" sheet of handwritten notes (both sides)
+
+//////////////////////////////////////
+
+Intro and elimination rules for existential quantifier (there exists)
+
+
+//////////////////////////////////
+
+Idea behind there exists-introduction (∃i):
+
+        P(v)
+∃i: --------------
+       ∃x P(x)
+
+//v is some individual
+
+
+
+
+Human(Socrates)
+
+E x (Human(x))
+
+If we find ONE individual in a domain where a statement holds
+
+...then THERE EXISTS an individual in the domain where the
+    statement holds
+
+
+/////////////////////////////////
+
+Example:
+
+Human(Socrates) |- E x (Human(x))
+
+
+
+Example:
+
+A x (Human(x)->Mortal(x)), Human(Socrates) |- E x (Mortal(x))
+
+
+
+//////////////////////////////////
+
+Idea behind there exists-elimination (∃e):
+
+                { a P(a)    assume
+     ∃x P(x),    ... Q }
+∃e: ------------------------------
+                  Q
+
+//think of a as an alias for the individual the E statement held for
+//a is "fresh" (never used before)
+
+
+If we know there is at least one individual where some statement holds
+
+...then we can introduce a (or whatever) as an ALIAS for that
+    individual in a subproof
+
+    ...whatever conclusion we reach in the subproof must be true
+        overall, since a was an EXISTING individual
+
+
+
+Structure of the subproof:
+
+3. E x P (x)
+4. {
+    5. a P(a)       assume //plug into your E statement
+    ...
+    10. Q
+}
+11. Q               Ee 3 4
+
+
+
+**If you have an E statement as a premise, you almost always
+want to start with a block where you create an alias (e.g. a)
+and plug it into your E statement, as above
+
+///////////////////////////////
+
+Examples:
+
+A x (Human(x)->Mortal(x)), E x (Human(x)) |- E x (Mortal(x))
+
+
+E x (P(x)) |-E y (P(y))
+
+
+
+∃x (P(x) V Q(x)) ⊢ (∃x P(x)) V (∃x Q(x))
+
+
+A x (Q(x) -> H(x)), E x (P(x) ^ Q(x)) ⊢ ∃ x (P(x) ^ H(x))
+
+
+E x (!P(x) ^ !Q(x)) |- E x (!(P(x) V Q(x)))
+
+////////////////////////////
+
+Proof tactics for predicate logic
+
+- see if you can do anything right away with the premises
+    (you probably can't)
+
+- look at top-level operator for what you are trying to prove
+    trying to prove A x (P(x)):
+        probably want Ai
+        open a subproof, introduce fresh a
+        try to get to P(a)
+        after subproof, use Ai to conclude A x (P(x))
+
+
+    trying to prove E x (P(x)):
+        usually have a E statement as a premise
+        have a subproof, make an alias for your E premise and plug it in,
+        get to E x (P(x)) by last line of subproof
+        after subproof, restate E x (P(x)) with Ee
+        no E? Do you have an V statement? Use Ve.
+
+    trying to prove ->
+        subproof
+        assume left side
+        get to right side by end of subproof
+        use ->i afterwards to conclude left -> right
+
+
+    trying to prove !(something)
+        subproof
+        assume something
+        get to contradiction by end of subproof
+        afterwards, conclude !(something) with !i
+
+
+    trying to prove ^
+        think of the two sides as separate proofs
+
+
+    trying to prove an V
+        can you get just one side? use Vi
+        do you have an V statement? Use Ve.
+        do you have a E statement? use Ee with a subproof.
+
+
+    when you are in a subproof, think about what you are trying
+    to prove. Find its top-level operator, approach as above.
+
+
+Unsure what to do?
+    - Do you have an V statement available? Use Ve.
+
+    - Do you have an E statement available? Use Ee
+
+    - Is negation involved, but not creating !(something)?
+        try pbc.
+
+
+/////////////////////////////////////////
+
+Equivalences in predicate logic:
+
+example sentences in English
+
+P(x): person x attends K-State
+Q(x): person x attends KU
+
+
+¬ (∃x P(x)) is equivalent to ∀x ¬ P(x)
+There is no person who attends K-State
+All people don't attend K-State.
+
+***(stopped here)***
+
+
+
+¬ (∀x P(x)) is equivalent to ∃x ¬ P(x)
+
+
+
+
+A x P(x) -> !Q(x) is equivalent to !(E x P(x) ^ Q(x))
+
+///////////////////////////////////////////////
+
+Next: mathematical induction
+If time, predicate logic proofs with nested quantifiers

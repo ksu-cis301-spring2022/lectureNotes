@@ -1,0 +1,3 @@
+//A x P(x) -> !Q(x) is equivalent to !(E x P(x) ^ Q(x))
+!(E x P(x) ^ Q(x)) |- A x P(x) -> !Q(x)
+

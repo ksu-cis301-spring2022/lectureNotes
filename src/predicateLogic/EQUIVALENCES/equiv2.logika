@@ -1,0 +1,2 @@
+//¬ (∀x P(x)) is equivalent to ∃x ¬ P(x)
+!(A x P(x)) |- E x !P(x)
