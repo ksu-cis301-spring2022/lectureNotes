@@ -1,0 +1,1 @@
+A x (A y P(x, y)) |- A y (A x P(y, x))

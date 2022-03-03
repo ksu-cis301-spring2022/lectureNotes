@@ -1,3 +1,49 @@
-//A x P(x) -> !Q(x) is equivalent to !(E x P(x) ^ Q(x))
-!(E x P(x) ^ Q(x)) |- A x P(x) -> !Q(x)
+//A x (P(x) -> !Q(x)) is equivalent to !(E x (P(x) ^ Q(x)))
+/*
+!(E x (P(x) ^ Q(x))) |- A x (P(x) -> !Q(x))
+{
+    1. !(E x (P(x) ^ Q(x)))                 premise
+    2. {
+        3. a
+        4. {
+            5. P(a)                         assume
+            6. {
+                7. Q(a)                     assume
+                8. P(a) ^ Q(a)              ^i 5 7
+                9. E x (P(x) ^ Q(x))        Ei 8 a
+                10. _|_                     !e 9 1
+                //want: contradiction
+            }
+            11. !Q(a)                       !i 6
+            //want: !Q(a)
+        }
+        12. P(a) -> !Q(a)                   ->i 4
+        //want: P(a) -> !Q(a)
+    }
+    13. A x (P(x) -> !Q(x))                 Ai 2
+    //use Ai to conclude A x (P(x) -> !Q(x))
+}
+*/
 
+
+A x (P(x) -> !Q(x)) |- !(E x (P(x) ^ Q(x)))
+{
+    1. A x (P(x) -> !Q(x))                  premise
+    2. {
+        3. E x (P(x) ^ Q(x))                assume
+        4. {
+            5. a P(a) ^ Q(a)                assume
+            6. P(a) -> !Q(a)                Ae 1 a
+            7. P(a)                         ^e1 5
+            8. Q(a)                         ^e2 5
+            9. !Q(a)                        ->e 6 7
+            10. _|_                         !e 8 9
+            //want: contradiction
+        }
+        11. _|_                             Ee 3 4
+        //want: contradiction
+    }
+    12. !(E x (P(x) ^ Q(x)))                !i 2
+    //!(E x (P(x) ^ Q(x))  by !i
+
+}
