@@ -197,34 +197,3 @@ We have the original n(n-1)/2 subsets plus the new n subsets. We have that:
 So the formula still holds.
 
 
-/////////////////////////////////////
-
-(Will do the rest on Tuesday)
-
-Multiple variables/quantifiers
-
-P(x, y): person x likes person y
-
-(everybody likes everybody)
-
-A x (A y P(x, y)) |- A y (A x P(y, x))
-
-
-
-////////////////////////////////////////
-
-
-E x (E y P(x, y)) |- E y (E x(P(x, y))
-
-///////////////////////////////////////////////
-
-
-A x (A y C(x) -> D(y)), E x C(x)  |- A y D(y)
-
-
-/////////////////////////////////////////////
-
-
-E y (A x P(x, y)) |- A x (E y P(x, y))
-
-Would we be able to prove the other direction?

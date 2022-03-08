@@ -1,1 +1,19 @@
-A x (A y C(x) -> D(y)), E x C(x)  |- A y D(y)
+A x (A y (C(x) -> D(y))), E x C(x)  |- A y D(y)
+{
+    1. A x (A y (C(x) -> D(y)))             premise
+    2. E x C(x)                             premise
+    3. {
+        4. a
+        5. {
+            6. b C(b)                       assume
+            7. A y (C(b) -> D(y))           Ae 1 b
+            8. C(b) -> D(a)                 Ae 7 a
+            9. D(a)                         ->e 8 6
+            //want D(a)
+        }
+        10. D(a)                            Ee 2 5
+
+        //want D(a)
+    }
+    11. A y D(y)                            Ai 3
+}

@@ -1,1 +1,16 @@
 E y (A x P(x, y)) |- A x (E y P(x, y))
+{
+    1. E y (A x P(x, y))                premise
+    2. {
+        3. a
+        4. {
+            5. b A x P(x, b)            assume
+            6. P(a, b)                  Ae 5 a
+            7. E y P(a, y)              Ei 6 b
+            //want E y P(a, y)
+        }
+        8. E y P(a, y)                  Ee 1 4
+        //want E y P(a, y)
+    }
+    9. A x (E y P(x, y))                Ai 2
+}
