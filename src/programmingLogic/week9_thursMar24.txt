@@ -1,0 +1,370 @@
+I'll hand exam 2 back on Tuesday
+    (grades should be in Canvas by sometime tomorrow)
+
+HW 8 will be posted later today
+    -> due Thursday, March 31
+
+///////////////////////////////////////
+
+Why have we been learning logic proof rules? What does that
+have to do with computer science?
+
+
+
+
+
+
+
+
+/////////////////////////////
+
+Rest of course: programming logic
+
+Apply proof techniques and similar reasoning to prove correctness
+of basic programs.
+
+(Why does this matter?)
+
+
+
+
+
+
+
+////////////////////////////
+
+Our Logika programs are a subset of Scala
+    - variables (boolean, int, sequences)
+    - printing and user input
+    - math operations
+    - conditional operations
+    - if and if/else statements
+    - while loops
+    - functions
+
+
+Basic Logika program #1
+    - get user input number, add one to it, print it out
+
+Basic Logika program #2
+    - get user input number, print whether it is positive or negative
+
+Basic Logika program #3
+    - use a loop to print the numbers from 10 down to 1
+
+Basic Logika program #4
+    - write a separate function to add all elements in a sequence
+    - create a sequence, call the function, print the result
+
+
+
+
+
+
+////////////////////////
+
+assume statements
+    - preconditions
+    - things we need to be true about user input or parameters
+
+assume(something about the input)
+
+assert statements
+    - postconditions
+    - things we want to claim are true after some code
+    - we need to PROVE these claims
+
+in Java/C#: will run the code, like:
+assert(methodCall(...) == something)
+
+For us: we need to have already proved what we are claiming
+
+
+What is our goal with an assert statement?
+
+
+
+How are Logika asserts different from C# (and other languages)?
+
+
+
+
+
+////////////////////////
+
+Process of validating a simple program:
+
+
+
+get user input / set initial variable values
+
+assume statements to specify what must be true about the input
+
+program statement
+
+(claims - use logic blocks to evaluate what has happened)
+
+program statement
+
+(claims - use logic blocks to evaluate what has happened)
+
+program statement
+
+(claims - must include what we need in our asserts [exactly])
+
+any assert statements to sum up what happened
+
+
+
+
+
+
+
+///////////////////////////////
+
+Claims go in "logic blocks", which look like:
+
+l"""{
+    //line numbers with claims and justifications
+    //similar to prop/pred logic proofs
+
+    x. claim            justification lineNumbers
+}"""
+
+//////////////////////////////
+
+Justifications:
+
+premise
+    - something from an assume
+    - a program assignment that was just executed
+        (use == to show equality in the claim)
+    - something shown in a previous logic block
+
+
+algebra
+    - any algebraic manipulation on a previous claim
+    - include all relevant line numbers in whatever order
+        (might be zero or 3+)
+
+ANY of your propositional/predicate logic justifications
+    (especially ^e1, ^e2, ^i, Vi1, Vi2)
+
+
+
+
+//////////////////////////////
+
+Example: assume1.logika
+    - get input number, assumed to be > 0
+    - verify that the input number is > -1
+
+
+When do we need a claim? What are we keeping track of?
+
+In order to make an assert, must end last logic block
+    with a claim that exactly matches the assert
+
+
+If you want an AND (^), put & in the assert
+
+If you want an OR (V), put | in the assert
+
+
+//////////////////////////////
+
+Example: write a program that creates a number, x, with value 2
+(add2.logika)
+
+Create a value, y, that is initialized to x + 2
+
+We want to assert at the end that y is 4
+
+Write the necessary logic blocks
+
+
+
+
+--> How could we also assert that x is still 2 using ONE assert?
+
+
+
+
+
+//////////////////////////////
+
+Example (maxInput.logika):
+
+get 2 user inputs: x and y
+assume that x > y
+set a max variable to x
+
+want to assert that max >= x and max >= y
+
+
+
+
+
+
+
+//////////////////////////////
+
+The algebra justification works for most mathematical manipulations
+
+Will not work on claims involving ∧, ∨, →, ⊥, ∀, ∃
+
+Another justification: subst
+
+
+
+
+
+
+
+
+
+/////////////////////////////
+
+subst1 m n
+
+l"""{
+    ...
+    m. LHS_M == RHS_M
+    ...
+    n. LHS_N == RHS_N
+    ...
+    x. (claim)              subst1 m n
+}"""
+
+(claim) rewrites claim n by substituting all occurrences of
+    LHS_M with RHS_M
+
+
+Example:
+
+l"""{
+    ...
+    m. x + 1 == y - 4
+    ...
+    n. x*(x + 1) == (x + 1) + y
+    ...
+    x. x*(y - 4) == (y - 4) + y            subst1 m n
+}
+
+
+
+
+
+
+/////////////////////////////
+
+subst2 m n
+
+l"""{
+    ...
+    m. LHS_M == RHS_M
+    ...
+    n. LHS_N == RHS_N
+    ...
+    x. (claim)              subst2 m n
+}
+
+(claim) rewrites claim n by substituting all occurrences of
+    RHS_M with LHS_M
+
+
+Example:
+
+l"""{
+    ...
+    m. x + 1 == y
+    ...
+    n. y*(x + 1) == (x + 1) + y
+    ...
+    x. (x + 1)*(x + 1) == (x + 1) + (x + 1)             subst2 m n
+}
+
+
+
+
+
+/////////////////////////////////
+
+Example (substPractice.logika):
+
+make a value x set to 4
+make a value y set to x + 2
+make a value z set to x + 2
+
+want to assert that y and z are the same
+
+
+
+
+
+
+//////////////////////////////
+
+Example: fill in justifications (missingJustifications.logika)
+
+First, try with no algebra rules
+
+Then, redo using algebra
+
+(I usually use the algebra justification, if either works)
+
+
+
+
+
+
+
+//////////////////////////////
+
+assignment with mutation
+
+if you change the value of a variable, want to add this claim
+    to the next logic block:
+
+x = x + 3
+l"""{
+    1. x == x_old + 3               premise
+
+}"""
+
+The name_old refers to the OLD value of the variable, just before
+the latest update.
+
+By the end of the next logic block, want to state what the
+variable's current value is WITHOUT using the _old value
+(it won't be available after the next logic block)
+
+
+
+
+
+//////////////////////
+
+Example (add3total.logika):
+
+- get an input number
+- save out an "orig" value that is equal to the input
+
+add 1 to the input number
+add 2 to the input number
+
+want to assert that the resulting number is 3 more than the orig value
+
+
+
+--> what if we added an assume that the input number was positive?
+--> could we add to our assert that the resulting number is positive?
+
+
+/////////////////////////////////////////
+
+Look at HW 8
+
+-> should be able to do numbers 1-4 now
+-> what do the programs do?
+-> note on #4 about dividing by 0

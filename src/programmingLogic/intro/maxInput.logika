@@ -1,0 +1,29 @@
+import org.sireum.logika._
+
+//get 2 user inputs: x and y
+
+val x: Z = readInt()
+val y: Z = readInt()
+
+
+//assume that x > y
+assume(x > y)
+
+l"""{
+    1. x > y            premise
+}"""
+
+
+//set a max variable to x
+var max: Z = x
+
+l"""{
+    1. max == x         premise
+    2. x > y            premise
+    3. max >= x         algebra 1
+    4. max >= y         algebra 1 2
+    5. max >= x & max >= y  ^i 3 4
+}"""
+
+//want ONE assert that max >= x and max >= y
+assert(max >= x & max >= y)

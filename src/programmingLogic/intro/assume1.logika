@@ -1,0 +1,19 @@
+//what import do we need?
+import org.sireum.logika._
+
+//how do we get user input?
+val x: Z = readInt("Enter a postive number: ")
+
+
+//what do we want to assume? (that the input is > 0)
+assume(x > 0)
+
+l"""{
+    1. x > 0            premise
+    2. x > -1           algebra 1
+    3. x > 0 ^ x > -1   ^i 1 2
+}"""
+
+
+//what do we want to assert? (that the input is also > -1)
+assert(x > 0 & x > -1)

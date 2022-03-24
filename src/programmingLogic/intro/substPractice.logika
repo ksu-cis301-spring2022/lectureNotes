@@ -1,0 +1,17 @@
+import org.sireum.logika._
+
+val x: Z = 4
+
+val y: Z = x + 2
+
+val z: Z = x + 2
+
+l"""{
+    //COMPLETE THIS
+    1. x == 4                   premise
+    2. y == x + 2               premise
+    3. z == x + 2               premise
+    4. y == z                   subst2 3 2
+}"""
+
+assert(y == z)

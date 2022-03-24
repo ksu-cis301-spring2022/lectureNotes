@@ -1,0 +1,39 @@
+import org.sireum.logika._
+
+var x: Z = readInt("Enter a number: ")
+val orig: Z = x
+
+assume (x > 0)
+
+//orig will always be the original user input value
+
+l"""{
+    1. orig == x                premise
+    2. x > 0                    premise
+    3. orig > 0                 algebra 1 2
+}"""
+
+x = x + 1
+
+l"""{
+    1. x == x_old + 1           premise
+    2. orig == x_old            premise
+    3. x == orig + 1            algebra 1 2
+    4. orig > 0                 premise
+    5. x > 0                    algebra 3 4
+}"""
+
+
+x = x + 2
+
+l"""{
+    1. x == x_old + 2           premise
+    2. x_old == orig + 1        premise
+    3. x == orig + 3            algebra 1 2
+    4. orig > 0                 premise
+    5. x > 0                    algebra 3 4
+    6. x == orig + 3 ^ x > 0    ^i 3 5
+}"""
+
+
+assert(x == orig + 3 & x > 0)

@@ -1,0 +1,27 @@
+//what import?
+import org.sireum.logika._
+
+//make a value x, which is 2
+val x: Z = 2
+
+l"""{
+    1. x == 2               premise
+}"""
+
+//make a value, y, that is initialized to x + 2
+val y: Z = x + 2
+
+l"""{
+    1. y == x + 2           premise
+    2. x == 2               premise
+    3. y == 4               algebra 1 2
+    4. y == 4 V x == 6      Vi1 3
+}"""
+
+
+//want to assert at the end that y is 4
+assert(y == 4 | x == 6)
+
+
+
+//could we also assert that x is still 2 using ONE assert?
