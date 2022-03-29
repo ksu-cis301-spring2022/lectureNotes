@@ -1,0 +1,205 @@
+Exam 2 discussion.
+
+You will see two scores - the raw score
+and the adjusted score (circled). The adjusted score
+includes 5 points that I added for everyone. (The adjusted
+score is what is entered in Canvas.)
+
+After adding 5 points:
+
+Average: 59/80 (74%)
+High: 83/80
+
+A (72 and up): 16 students
+B (64-71): 13 students
+C (56-63): 11 students
+D (48-55): 8 students
+F (below 48): 17 students
+
+///////////////////////////////////////
+
+Look at exam 2.
+
+///////////////////////////////////////
+
+Reminder: assume statements
+
+When do we use them?
+    - user input that needs to be in a particular range
+    - after you get user input, put:
+
+    assume(the range of that input)
+
+What do they mean?
+    the logic that follows is based on the assumption that
+    the user input is within the bounds of the assume
+    precondition for program
+
+
+What can we do in the next logic block?
+    list exactly the assume statement as a premise
+
+
+
+//////////////////////////////////////
+
+Reminder: assert statements
+
+- will check to see if our program is logically correct
+
+When do we use them?
+    at end usually, but sometimes midway (stating what is true at that point)
+
+
+What do they mean?
+    what we want to claim about what our program did
+
+
+How do we get an assert statement to be verified?
+
+    with logic blocks
+    a previous logic block must include EXACTLY the statement we are asserting
+
+
+
+//////////////////////////////////////
+
+Reminder: subst rules
+
+l"""{
+    1. x == y + 1                       (some justification)
+    2. (x > 0) ^ (y + 1 < 10)           (some justification)
+    3. (y+1 > 0) ^ (y + 1 < 10)         subst1 1 2
+    4. (x > 0) ^ (x < 10)               subst2 1 2
+}"""
+
+//////////////////////////////////////
+
+Reminder: algebra rule
+
+l"""{
+    1. x > 0                            (some justification)
+    2. x >= 0                           algebra 1
+    3. y == x + 1                       (some justification)
+    4. y > 0                            algebra 1 3
+}"""
+
+
+//////////////////////////////////////
+
+Example: see assign1.logika
+
+First, fill in assert statements
+Then, fill in logic blocks
+
+//////////////////////////////////////
+
+INVARIANT - something that remains true through the program
+
+We will use these much more when we get to loops
+
+Example: assign2.logika
+
+
+(I am skipping this example, but it would be good
+for you to practice on your own)
+
+/////////////////////////////////////
+
+Processing programs with /
+
+All / is integer division (no decimal type)
+
+For every line of code with num / denom:
+    - must have EXACTLY this claim in the previous logic block:
+        denom != 0
+
+    - Other forms will not work
+        0 != denom (NO!)
+        denom > 0   (NO!)
+
+
+This is even true when dividing by a literal (like 2):
+
+l"""{
+    1. 2 != 0           algebra
+}"""
+
+x = a / 2
+
+
+/////////////////////////////
+
+Processing programs with %
+
+For every line of code with num % denom
+    - must have EXACTLY these claims in the previous logic block:
+        denom > 0
+        num >= 0
+
+l"""{
+    1. 2 > 0           algebra
+    2. a >= 0          (some justification)
+}"""
+
+x = a % 2
+
+/////////////////////////////////////
+
+Logika is aware that all division is integer division.
+
+
+This will not validate!!! (why?)
+
+l"""{
+    1. x == (x/3) * 3           algebra
+}"""
+
+
+
+/////////////////////////////////////
+
+Example (assign3.logika): write a program that:
+
+- gets a positive input number (and also saves it to an orig val)
+- multiplies the input number by 2
+        - (the number should be even now)
+
+- adds 2 to my running total
+        - (the number should still be even)
+
+- divide the result by 2 and subtract 1
+        - (the number should be back to the original)
+
+Example: suppose input is 3
+
+First: write all asserts (what should be true after each step)
+
+Next: add necessary logic blocks
+
+//////////////////////////////////
+
+When working with multiplication and division...
+
+Try to avoid using division in logic blocks if you can
+help it. Try to express things with multiplication instead.
+
+//////////////////////////////////
+
+(We will do the next example on Thursday)
+
+Example (assign4.logika): swap program
+
+inputs x and y (save their original values)
+
+x = x + y
+y = x - y
+x = x - y
+
+now x and y will have switched
+
+Example: x is 10 and y is 3
+
+
+/////////////////////////////////
+

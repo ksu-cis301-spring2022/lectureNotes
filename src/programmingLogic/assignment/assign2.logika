@@ -1,0 +1,19 @@
+import org.sireum.logika._
+
+var x: Z = readInt()
+var z: Z = readInt()
+
+//Invariant:
+    //(x + z == 100) ^ (z > 0)
+
+assume((x + z == 100) & (z > 0))
+
+
+z = z + 1
+
+
+
+x = x - 1
+
+
+assert((x + z == 100) & (z > 0))
