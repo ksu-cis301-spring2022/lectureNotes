@@ -7,15 +7,26 @@ var y: Z = readInt()
 val xOrig: Z = x
 val yOrig: Z = y
 
-
-
-//want to swap x and y
+//swap x and y
 val temp: Z = x
-
 x = y
-
+l"""{
+    1. x == y               premise
+    2. temp == x_old        premise
+    3. xOrig == x_old       premise
+    4. yOrig == y           premise
+    5. temp == xOrig        algebra 2 3
+    6. x == yOrig           algebra 1 4
+}"""
 y = temp
+l"""{
+    1. y == temp            premise
+    2. temp == xOrig        premise
+    3. yOrig == y_old       premise
+    4. y == xOrig           algebra 1 2
+    5. x == yOrig           premise
+    6. x == yOrig ^ y == xOrig  ^i 5 4
+}"""
 
-
-
-//what do we want to claim we did?
+//what do we want to assert we did?
+assert(x == yOrig & y == xOrig)

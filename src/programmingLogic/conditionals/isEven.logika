@@ -1,0 +1,57 @@
+import org.sireum.logika._
+
+var num: Z = readInt("Enter a non-negative number: ")
+
+assume (num >= 0)
+
+var even: B = false
+
+//use modulus, p % q
+//p >= 0
+//q > 0
+
+l"""{
+    1. 2 > 0            algebra
+    2. num >= 0         premise
+    3. even == false    premise
+}"""
+
+if (num % 2 == 0) {
+    l"""{
+        1. num % 2 == 0     premise
+    }"""
+    even = true
+    l"""{
+        1. even == true                     premise
+        2. num % 2 != 0 V even == true      Vi2 1
+        3. num % 2 == 0                     premise
+        4. num % 2 == 0 V even == false     Vi1 3
+    }"""
+} else {
+    //do nothing
+    l"""{
+        1. !(num % 2 == 0)                  premise
+        2. num % 2 != 0                     algebra 1
+        3. even == false                    premise
+        4. num % 2 != 0 V even == true      Vi1 2
+        5. num % 2 == 0 V even == false     Vi2 3
+    }"""
+}
+
+//IF num was even, THEN even is true
+//IF num was odd (not even), THEN even is false
+
+//p - > q
+//!p V q
+
+
+//asserts can't use ->
+
+//summary of what was true in both branches
+l"""{
+    1. num % 2 != 0 V even == true          premise
+    2. num % 2 == 0 V even == false         premise
+}"""
+
+assert(num % 2 != 0 | even == true)
+assert(num % 2 == 0 | even == false)

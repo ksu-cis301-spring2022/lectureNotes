@@ -1,0 +1,77 @@
+import org.sireum.logika._
+
+var total: Z = 0
+var pos: Z = 0
+var nonPos: Z = 0
+
+// Prove the invariant
+//      total == pos + nonPos
+// holds BEFORE the conditional statement
+
+l"""{
+    1. total == 0           premise
+    2. pos == 0             premise
+    3. nonPos == 0          premise
+    4. total == pos + nonPos    algebra 1 2 3
+}"""
+
+assert (total == pos + nonPos)
+
+val x: Z = readInt()
+
+if (x > 0) {
+    l"""{
+        1. x > 0                    premise
+        2. total == pos + nonPos    premise
+        3. total == 0               premise
+        4. pos == 0                 premise
+        5. nonPos == 0              premise
+    }"""
+    pos = pos + 1
+    l"""{
+        1. pos == pos_old + 1       premise
+        2. pos_old == 0             premise
+        3. pos == 1                 algebra 1 2
+    }"""
+    total = total + 1
+    l"""{
+        1. total == total_old + 1   premise
+        2. total_old == 0           premise
+        3. total == 1               algebra 1 2
+        4. nonPos == 0              premise
+        5. pos == 1                 premise
+        6. total == pos + nonPos    algebra 3 4 5
+    }"""
+} else {
+    l"""{
+        1. !(x > 0)                 premise
+        2. pos == 0                 premise
+        3. nonPos == 0              premise
+        4. total == 0               premise
+    }"""
+    nonPos = nonPos + 1
+    l"""{
+        1. nonPos == nonPos_old + 1 premise
+        2. nonPos_old == 0          premise
+        3. nonPos == 1              algebra 1 2
+    }"""
+    total = total + 1
+    l"""{
+        1. total == total_old + 1   premise
+        2. total_old == 0           premise
+        3. total == 1               algebra 1 2
+        4. pos == 0                 premise
+        5. nonPos == 1              premise
+        6. total == pos + nonPos    algebra 3 4 5
+    }"""
+}
+
+//sum up the common conclusion
+l"""{
+    1. total == pos + nonPos        premise
+}"""
+
+//prove invariant property: total == pos + nonPos
+//is still true AFTER the conditional
+
+assert(total == pos + nonPos)
