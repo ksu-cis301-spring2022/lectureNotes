@@ -1,0 +1,101 @@
+HW 9 due Thursday, April 7
+
+Email me if you want the link for any previous lecture
+    (let me know which lecture date you would like)
+
+(Or if you need to miss, let me know and I'll send you
+the link after class)
+
+/////////////////////////////////
+
+Absolute value
+
+/////////////////////////////////
+
+Max of 3
+
+- look at code file first
+- then look at verification file
+
+////////////////////////////////
+
+Next up: validating programs with functions
+
+- look at "plus one" code
+
+////////////////////////////////
+
+Function contracts - just under function definition:
+
+l"""{
+    requires (precondition)
+    modifies (list of variables)
+    ensures (postcondition)
+}"""
+
+
+Requires (precondition):
+- any assumptions we need to make about the parameters
+- can have several preconditions -- put on the next lines, tabbed over
+
+
+Modifies:
+- list any sequences or global variables modified by this function
+- we won't be using until we get to sequences
+
+
+Ensures/postcondition:
+- describes what the function returns
+    result == (describe the value being returned)
+- describes any changes the function makes to sequences/globals
+- can have several postconditions -- put on the next lines, tabbed over
+
+/////////////////////////////////
+
+What do we need to show before calling a function?
+- you must show that the precondition (requires) are true
+
+
+What can we list as a premise just inside a function?
+- you can list the precondition as a premise in the function body
+
+
+
+
+What do we need to show before returning from a function?
+- need to prove the postcondition
+    (show you are returning what you say you will)
+
+
+
+What can we list as a premise just after calling a function?
+- the postcondition
+
+
+
+/////////////////////////////////
+
+Write function contract for plusOne
+
+Prove the postcondition for plusOne
+
+Validate the assert after calling plusOne
+
+/////////////////////////////////
+
+Example: getTicketCosts
+(we'll do on Thursday)
+
+- find the total cost of tickets based on adult/child numbers
+- each adult ticket is $50, and each child ticket is $30
+
+- what do we need as preconditions?
+
+
+- what should be the postcondition?
+
+--> write the code
+--> prove the postcondition
+--> write test code to call getTicketCosts
+--> add an assert
+--> validate the assert

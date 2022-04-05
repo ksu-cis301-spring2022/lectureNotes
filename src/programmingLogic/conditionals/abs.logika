@@ -1,0 +1,63 @@
+import org.sireum.logika._
+
+val num: Z = readInt()
+
+var absNum: Z = num
+
+//how can we update absNum to be the absolute value?
+if (num < 0) {
+    l"""{
+        1. num < 0                  premise
+        2. absNum == num            premise
+    }"""
+
+    absNum = absNum * -1
+
+    l"""{
+        1. absNum == absNum_old * -1        premise
+        2. absNum_old == num                premise
+        3. num < 0                          premise
+        4. absNum == -1 * num               algebra 1 2
+        5. absNum >= 0                      algebra 3 4
+    }"""
+
+    //need to show absNum >= 0
+    //need to show absNum == -1 * num
+} else {
+    //we know the input number is not negative
+
+    l"""{
+        1. absNum == num                    premise
+        2. !(num < 0)                       premise //num >= 0
+        3. absNum >= 0                      algebra 1 2
+    }"""
+
+    //need to show absNum >= 0
+    //we have already show that absNum == num
+}
+
+//summary logic block
+l"""{
+    1. absNum >= 0                  premise //was a claim in both branches
+
+    //Left side from if, right side from else
+    2. absNum == -1 * num V absNum == num  premise
+
+    //use OR-elimination to get the OR in the right order
+    3. {
+        4. absNum == -1 * num                   assume
+        5. absNum == num V absNum == -1*num     Vi2 4
+    }
+    6. {
+        7. absNum == num                        assume
+        8. absNum == num V absNum == -1*num     Vi1 7
+    }
+    9. absNum == num V absNum == -1*num         Ve 2 3 6
+    10. absNum >= 0 ^ (absNum == num V absNum == -1*num)    ^i 1 9
+}"""
+
+//p V q
+//want to prove q V p
+
+//what do we want to claim?
+assert(absNum >= 0 & (absNum == num | absNum == -1*num))

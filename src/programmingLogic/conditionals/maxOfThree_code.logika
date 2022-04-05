@@ -1,0 +1,40 @@
+import org.sireum.logika._
+
+val a: Z = readInt()
+val b: Z = readInt()
+val c: Z = readInt()
+var max: Z = 0
+
+
+if (a >= b) {
+    //max could be a or c
+    if (a >= c) {
+        max = a
+    } else {
+        max = c
+    }
+    //
+} else {
+    //a is not the max
+    if (b >= c) {
+        max = b
+    } else {
+        max = c
+    }
+    //
+}
+//
+
+print("Max between ", a, ", ", b, " and ", c, " is ", max)
+
+//What do we want to assert?
+//max should be >= every single input
+//needs to be true (full claim) in every single branch
+assert(max >= a & max >= b & max >= c)
+
+//max needs to equal one of the inputs
+//need to show ONE of these values in each branch
+assert(max == a | max == b | max == c)
+
+//What do we need to show in EVERY branch?
+//What might we show

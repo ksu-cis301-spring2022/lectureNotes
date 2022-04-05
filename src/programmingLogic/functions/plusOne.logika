@@ -1,0 +1,31 @@
+import org.sireum.logika._
+
+def plusOne(n: Z): Z = {
+    l"""{
+        ensures result == n+1
+    }"""
+
+
+    val answer: Z = n+1
+    l"""{
+        //this proves the postcondition
+        1. answer == n+1            premise
+    }"""
+
+    return answer
+}
+
+////////// Test code ///////////////
+
+var x: Z = 5
+//if we had a precondition, would need to prove it here
+var added: Z = plusOne(x)
+
+l"""{
+    //I can list the postcondition (what is returned) as a premise
+    1. added == x+1             premise
+    2. x == 5                   premise
+    3. added == 6               algebra 1 2
+}"""
+
+assert(added == 6)
