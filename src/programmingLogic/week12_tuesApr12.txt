@@ -1,0 +1,97 @@
+HW 10 due Thursday, April 14
+
+////////////////////////////////////
+
+We proved using mathematical induction that:
+
+1 + 3 + 5 + ... + (2n−1) = n^2
+
+(the sum of the odd numbers up to 2n-1 equals n^2)
+
+- write a recursive function to calculate this sum
+
+- verify it
+
+////////////////////////////////
+
+Validating loops.
+
+while (condition) {
+    statements
+}
+
+We want to be able to make claims about our program after loop
+is done
+    ...but we don't know how many times it will execute
+    ...or even IF it will execute
+
+//////////////////////////////
+
+Solution: kind of like mathematical induction
+
+Come up with a loop INVARIANT that summarizes the behavior
+in a loop
+
+invariant should be true when loop begins
+should be STILL true at the end of each iteration
+
+1) Prove the invariant is true before the loop begins
+    (what is this like in mathematical induction?)
+
+2) Assume the invariant is true at the beginning of an iteration.
+    Prove the invariant still holds at the end of the iteration.
+    (what is this like in mathematical induction?)
+
+
+/////////////////////////
+
+When you exit a loop, you know two things:
+    1) What about the invariant?
+
+    2) What about the loop condition?
+
+
+If your loop is in a function, you can use those two pieces
+to prove the postcondition of the function.
+
+/////////////////////////
+
+Loop invariant block: just inside the loop
+
+while (condition) {
+    l"""{
+        invariant (list the invariant[s])
+        modifies (list all variables modified in the loop)
+    }"""
+
+    code for the loop
+}
+
+
+/////////////////////////
+
+Example: multiplication by repeated addition, using a loop
+
+See the code.
+
+
+Verification steps:
+1) Add a function contract
+2) Add a loop invariant block
+3) Prove the invariant is true before the loop begins
+4) Assume the invariant is true at the start of an iteration.
+    Prove it is still true at the end of the iteration.
+5) Prove the postcondition after the loop ends.
+    !(condition) and the invariant are premises
+
+
+If you have calling code:
+1) Prove the precondition in the calling code before
+    calling the function.
+2) Use the postcondition as a premise in the calling code after
+    calling the function.
+
+
+////////////////////////////////
+
+Prove the correctness of mult.

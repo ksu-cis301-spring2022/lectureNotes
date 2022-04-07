@@ -1,0 +1,90 @@
+HW 9 due tonight
+
+HW 10 will be posted later today (due Thursday, April 14)
+
+//////////////////////////////
+
+Today:
+- more with verifying functions
+- verifying recursive functions
+- begin loop invariants and verifying loops
+
+//////////////////////////////
+
+Reminder: function contracts
+
+l"""{
+    requires (precondition)
+    modifies (list of variables)
+    ensures (postcondition)
+        another thing
+        another thing
+}"""
+
+preconditions - things I need to be true (usually about parameters)
+    for the function to work
+
+postconditions - what I am promising will be true when the function
+    ends. Describes what is being returned. Usually:
+
+    result == (some expression involving parameters)
+
+    result > 0
+
+Four steps:
+1) What should be done before calling the function?
+    must verify the preconditions for the function
+
+2) What can the function itself do with the precondition?
+    can list as premises
+
+3) What must the function do with the postcondition?
+    must prove the postcondition(s)
+
+
+
+4) What can the calling code do with the postcondition after
+    the function returns?
+
+    x = function(param)
+
+    list the function's postcondition as premises
+
+    x > 0
+
+
+/////////////////////////////////
+
+Example: getTicketCosts
+
+- find the total cost of tickets based on adult/child numbers
+- each adult ticket is $50, and each child ticket is $30
+
+- what do we need as preconditions?
+- what should be the postcondition?
+
+--> write the code
+--> prove the postcondition
+--> write test code to call getTicketCosts
+--> add an assert
+--> validate the assert
+
+
+/////////////////////////////////
+
+Example: findMax (turn the max example into a function)
+
+
+
+////////////////////////////////
+
+Recursive functions
+
+- exactly the same idea
+
+- write recursive mult function
+
+- how would we verify it?
+
+////////////////////////////////
+

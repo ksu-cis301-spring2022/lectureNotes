@@ -1,0 +1,17 @@
+import org.sireum.logika._
+
+def sumOdds(n: Z): Z = {
+    //want to return 1 + 3 + ... + (2n -1)
+
+    //we know from mathematical induction that this should
+    //equal n^2
+
+    //use recursion
+}
+
+////////////// Test code //////////////
+
+val pos: Z = 4
+
+//call sumOdds to get the sum of the 4th odd number
+//what do we want to assert that it is?

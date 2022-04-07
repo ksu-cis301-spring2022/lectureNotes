@@ -1,0 +1,103 @@
+import org.sireum.logika._
+
+//find the max between x and y
+def findMax(x: Z, y: Z): Z = {
+    //write the function contract
+    //old assert was:
+    //assert((max >= x & max >= y) & (max == x | max == y))
+
+    l"""{
+        ensures
+            result >= x
+            result >= y
+            result == x V result == y
+    }"""
+
+    var max: Z = 0
+
+    l"""{
+        1. max == 0             premise
+    }"""
+
+    if (x > y) {
+        l"""{
+            1. max == 0         premise
+            2. x > y            premise
+        }"""
+
+        max = x
+
+        l"""{
+            1. max == x         premise
+            2. max >= x         algebra 1
+            3. x > y            premise
+            4. max >= y         algebra 1 3
+        }"""
+
+    } else {
+        l"""{
+            1. max == 0         premise
+            2. !(x > y)         premise
+            3. x <= y           algebra 2
+        }"""
+
+        max = y
+        l"""{
+            1. max == y         premise
+            2. x <= y           premise
+            3. max >= x         algebra 1 2
+            4. max >= y         algebra 1
+        }"""
+    }
+
+    //prove the postconditions
+    l"""{
+        //true in both the if and the else
+        1. max >= x                 premise
+        2. max >= y                 premise
+
+        //first was true in if, second true in else
+        3. max == x V max == y      premise
+    }"""
+
+    return max
+}
+
+////////////// Test code /////////////////
+
+val num1: Z = 3
+val num2: Z = 2
+
+//get the max between num1 and num2
+val biggest: Z = findMax(num1, num2)
+
+//list all the postconditions as premises and build to the assert
+l"""{
+    1. biggest >= num1                      premise
+    2. biggest >= num2                      premise
+    3. biggest == num1 V biggest == num2    premise
+
+    //pull in the initial values
+    4. num1 == 3                            premise
+    5. num2 == 2                            premise
+
+    6. biggest >= 3                         algebra 1 4
+    7. biggest >= 2                         algebra 2 5
+    8. biggest == 3 V biggest == num2       subst1 4 3
+    9. biggest == 3 V biggest == 2          subst1 5 8
+
+    //OR-elimination
+    10. {
+        11. biggest == 3                    assume
+    }
+    12. {
+        13. biggest == 2                    assume
+        14. !(biggest >= 3)                 algebra 6 13
+        15. _|_                             !e 6 14
+        16. biggest == 3                    _|_e 15
+    }
+    17. biggest == 3                        Ve 9 10 12
+}"""
+
+//what do we want to assert that the max is?
+assert(biggest == 3)

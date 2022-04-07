@@ -1,0 +1,88 @@
+import org.sireum.logika._
+
+
+//x + x + ... + x (y times)
+def mult(x: Z, y: Z): Z = {
+    //want to return x * y, through repeated addition
+
+    l"""{
+        requires y >= 0
+        ensures result == x*y
+    }"""
+
+    //we can list the premise, y >= 0, anywhere (since y doesn't change)
+
+    var sum: Z = 0
+
+    //use recursion
+    if (y == 0) {
+        //do nothing (base case)
+        //sum is already 0
+
+        l"""{
+            1. y == 0                   premise
+            2. sum == 0                 premise
+            3. sum == x*y               algebra 1 2
+        }"""
+
+    } else {
+        //recursive step
+
+        //need to verify the precondition
+
+        l"""{
+            1. !(y == 0)                premise
+            2. y >= 0                   premise // the precondition
+            3. y > 0                    algebra 1 2
+            4. y - 1 >= 0               algebra 3
+        }"""
+
+        sum = mult(x, y - 1)
+
+        l"""{
+            1. sum == x*(y-1)           premise // from the postcondition
+        }"""
+
+        sum = sum + x
+
+        l"""{
+            1. sum == sum_old + x       premise
+            2. sum_old == x*(y-1)       premise //from previous block
+            3. sum == x*(y-1) + x       algebra 1 2
+            4. sum == x * y             algebra 3
+        }"""
+    }
+
+    //want our postcondition, sum == x*y
+    l"""{
+        //true in both the if and the else
+        1. sum == x * y                 premise
+    }"""
+
+    return sum
+}
+
+////////////// Test code //////////////
+
+val a: Z = 5
+val b: Z = 4
+
+//verify the precondition
+l"""{
+    1. b == 4               premise
+    2. b >= 0               algebra 1
+}"""
+
+//call mult to get the product between a and b
+var answer: Z = mult(a, b)
+
+//list the postcondition as a premise
+l"""{
+    1. answer == a*b                        premise
+    2. a == 5                               premise
+    3. b == 4                               premise
+    4. answer == 20                         algebra 1 2 3
+}"""
+
+//what do we want to assert that it is?
+assert(answer == 20)

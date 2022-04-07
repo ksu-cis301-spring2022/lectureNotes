@@ -3,7 +3,26 @@ import org.sireum.logika._
     //adult tickets: $50
     //kid tickets: $30
 def getTicketCosts(adult: Z, kid: Z): Z = {
-    //write the function
+    l"""{
+        requires adult >= 0
+            kid >= 0
+        ensures result == adult*50 + kid*30
+            result >= 0
+    }"""
+
+    var total: Z = adult*50 + kid*30
+
+    l"""{
+        //step 2: can list preconditions as premises
+        1. adult >= 0               premise
+        2. kid >= 0                 premise
+
+        //step 3: prove the postconditions
+        3. total == adult*50 + kid*30   premise
+        4. total >= 0               algebra 1 2 3
+    }"""
+
+    return total
 }
 
 ////////////// Test code /////////////////
@@ -12,4 +31,27 @@ val k: Z = 3
 val a: Z = 2
 
 //get the ticket cost
-//what do we want to assert that the cost be?
+
+//1) must verify the precondition(s)
+
+l"""{
+    1. a == 2                   premise
+    2. a >= 0                   algebra 1
+    3. k == 3                   premise
+    4. k >= 0                   algebra 3
+}"""
+
+var amount: Z = getTicketCosts(a, k)
+
+//step 4: list the postconditions as premises
+l"""{
+    1. amount == a*50 + k*30        premise
+    2. amount >= 0                  premise
+
+    //build to the assert
+    3. a == 2                       premise
+    4. k == 3                       premise
+    5. amount == 190                algebra 1 3 4
+}"""
+
+assert(amount == 190)
