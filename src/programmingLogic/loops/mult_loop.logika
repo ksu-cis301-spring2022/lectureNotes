@@ -1,15 +1,85 @@
 import org.sireum.logika._
 
+//want x + x + ... + x (total of y times)
 def mult(x: Z, y: Z): Z = {
+    l"""{
+        requires y >= 0
+        ensures result == x*y
+    }"""
+
     var total: Z = 0
     var i: Z = 0
 
+    //prove invariant is true before loop
+    l"""{
+        1. total == 0               premise
+        2. i == 0                   premise
+        3. total == i*x             algebra 1 2
+        //need: total == i*x
+    }"""
+
     while (i != y) {
+        l"""{
+            invariant total == i*x
+            modifies total, i
+        }"""
+
+        //can list as a premise: total == i*x
+
         total = total + x
+
+        l"""{
+            1. total == total_old + x       premise //assignment
+            2. total_old == i*x             premise //invariant
+            3. total == i*x + x             algebra 1 2
+        }"""
+
         i = i + 1
+
+        l"""{
+            1. i == i_old + 1               premise //assignment
+            2. total == i_old*x + x         premise //from previous logic block
+            3. total == (i-1)*x + x         algebra 1 2
+            4. total == i*x - x + x         algebra 3
+            5. total == i*x                 algebra 4 //invariant still holds!
+        }"""
+
+        //prove that invariant still holds: total == i*x
     }
+
+    //can list the loop invariant as a premise
+    l"""{
+        1. total == i*x                 premise //loop invariant
+        2. !(i != y)                    premise //!(loop condition)
+        3. i == y                       algebra 2
+        4. total == x*y                 algebra 1 3
+
+        //need: total == x*y for postcondition
+    }"""
+
 
     return total
 }
 
 /////////////// Test code ////////////////
+
+var a: Z = 3
+var b: Z = 2
+
+//prove precondition
+l"""{
+    1. b == 2                   premise
+    2. b >= 0                   algebra 1 //satisfies precondition
+    //need b >= 0
+}"""
+
+var test: Z = mult(a, b)
+
+l"""{
+    1. test == a*b              premise //postcondition
+    2. a == 3                   premise
+    3. b == 2                   premise
+    4. test == 6                algebra 1 2 3
+}"""
+
+assert(test == 6)
