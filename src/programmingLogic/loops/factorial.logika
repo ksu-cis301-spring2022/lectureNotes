@@ -1,0 +1,104 @@
+import org.sireum.logika._
+
+l"""{
+    fact
+        def factDef(n: Z): Z
+            fOne. factDef(1) == 1
+            fBig.  ∀x: Z  x > 1 → factDef(x) == factDef(x - 1) * x
+}"""
+
+// n! = n * (n-1) * (n-2) * .. * 1
+// 1! = 1
+def factorial(n: Z): Z = {
+    l"""{
+        requires n >= 1
+        ensures result == factDef(n)
+    }"""
+
+    var i: Z = 1 //how many multiplications we have done
+    var product: Z = 1  //my current calculation
+
+    //must prove invariant before loop begins
+    l"""{
+        1. i == 1                       premise
+        2. product == 1                 premise
+        3. factDef(1) == 1              fact fOne //pull in first Logika fact rule
+        4. product == factDef(i)        algebra 1 2 3
+        //Need: product == factDef(i)
+        5. i >= 1                       algebra 1 //for the second loop invariant
+    }"""
+
+    while (i != n) {
+        l"""{
+            invariant product == factDef(i)
+                i >= 1
+            modifies i, product
+        }"""
+
+
+        i = i + 1
+
+        l"""{
+            1. i == i_old + 1               premise //variable update
+            2. product == factDef(i_old)    premise // loop invariant
+            3. product == factDef(i-1)      algebra 1 2 //rewrite invariant with no old
+            4. i_old >= 1                   premise //second loop invariant
+            5. i > 1                        algebra 1 4 //I need for the Logika fact
+        }"""
+
+        product = product * i
+
+        l"""{
+            1. product == product_old*i                         premise //variable update
+            2. product_old == factDef(i-1)                      premise //pull in updated loop invariant statement
+            3. ∀x: Z  x > 1 → factDef(x) == factDef(x - 1) * x  fact fBig
+            4. i > 1 → factDef(i) == factDef(i - 1) * i         Ae 3 i
+            5. i > 1                                            premise //from previous block
+            6. factDef(i) == factDef(i - 1) * i                 ->e 4 5
+            7. product == factDef(i-1)*i                        algebra 1 2
+            8. product == factDef(i)                            algebra 6 7
+            9. i >= 1                                           algebra 5 //for second loop invariant
+        }"""
+
+        //need to prove product == factDef(i) still true
+    }
+
+    //need to prove : product == factDef(n)
+
+    l"""{
+        1. product == factDef(i)        premise //loop invariant
+        2. !(i != n)                    premise //loop condition false
+        3. i == n                       algebra 2
+        4. product == factDef(n)        algebra 1 3
+    }"""
+
+    return product
+}
+
+//////// Test code ///////////
+
+var num: Z = 2
+
+//prove precondition
+l"""{
+    1. num == 2             premise
+    2. num >= 1             algebra 1
+}"""
+
+var answer: Z = factorial(num)
+
+l"""{
+    1. answer == factDef(num)           premise //postcondition
+    2. num == 2                         premise
+    3. answer == factDef(2)             algebra 1 2
+    4. ∀x: Z  x > 1 → factDef(x) == factDef(x - 1) * x  fact fBig
+    5. 2 > 1 -> factDef(2) == factDef(2 - 1) * 2        Ae 4 2
+    6. 2 > 1                            algebra
+    7. factDef(2) == factDef(2 - 1) * 2  ->e 5 6
+    8. factDef(1) == 1                  fact fOne
+    9. factDef(2) == factDef(1) * 2     algebra 7
+    10. factDef(2) == 2                 algebra 8 9
+    11. answer == 2                     algebra 1 2 10
+}"""
+
+assert(answer == 2)

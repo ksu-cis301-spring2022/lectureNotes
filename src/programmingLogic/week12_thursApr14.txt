@@ -1,0 +1,123 @@
+HW 10 due Thursday, April 14
+    (I'll post HW 11 after class today)
+
+Exam 3 is Thursday, April 21
+    (I'll post review information today or tomorrow)
+    can bring a sheet of notes
+
+////////////////////////////////
+
+How to study for an exam?
+
+
+
+////////////////////////////////
+
+Today: more with proving correctness of loops
+    Logika facts
+
+///////////////////////////////
+
+Reminder: loop invariant block
+
+//prove invariant holds before loop begins
+while (condition) {
+    l"""{
+        invariant (list the invariant[s])
+        modifies (list all variables modified in the loop)
+    }"""
+
+    code for the loop
+}
+
+Where do we need to prove the invariant(s)?
+
+1) before the loop begins
+2) assume invariant is true at beginning of iteration (premise)
+    prove that invariant is still true at end of iteration
+
+Where can we list as a premise that the invariant is true?
+
+1) at the beginning of an iteration
+2) right after the loop is done
+
+//////////////////////////////////
+
+see sum of odds as an iterative function
+
+sumOdds(3)
+
+1 + 3 + 5 = 9
+
+sum of first n odd numbers = n^2
+
+prove its correctness
+
+//////////////////////////////////
+
+Example: factorial program
+
+Write code.
+
+
+
+What would the invariant be (in words)?
+
+
+
+
+At the end of i iterations, what is answer?
+
+
+
+What would the postcondition be (in words)?
+
+
+How can we express this?
+
+
+
+
+
+///////////////////////////////////
+
+Answer: Logika programming *facts*
+
+- let you create proof functions for specifying contracts
+- similar to how you would write a recursive definition in math
+
+    1! = 1
+    n! = (n-1)! * n
+
+// 1! = 1
+// n! = (n-1)!*n, for n > 1
+
+l"""{
+    fact
+        def factDef(n: Z): Z
+            fOne. factDef(1) == 1
+            fBig.  ∀x: Z  x > 1 → factDef(x) == factDef(x - 1) * x
+}"""
+
+factDef(3) = factDef(2)*3
+    factDef(2) = factDef(1)*2
+
+
+- once this is defined (before the code for the function), we
+    can pull in these rules as justifications in our logic blocks:
+
+     l"""{
+        1. factDef(1) == 1                                  fact fOne
+        2. A x: Z x > = 1 -> factDef(x) == factDef(x-1)*x   fact fBig
+     }"""
+
+
+--> now, write the function contract and loop invariant block
+
+--> do the verification
+
+//////////////////////////////////
+
+Tuesday:
+    - how do we come up with invariants?
+    - exam 3 review

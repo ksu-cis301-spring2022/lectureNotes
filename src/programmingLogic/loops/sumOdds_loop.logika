@@ -2,20 +2,66 @@ import org.sireum.logika._
 
 def sumOdds(n: Z): Z = {
     //want to return 1 + 3 + ... + (2n -1)
+    //this is the sum of the first n odd numbers
+
+    l"""{
+        requires n >= 1
+        ensures result == n*n
+    }"""
 
     //we know from mathematical induction that this should
     //equal n^2
 
-    //use a loop
+    var i: Z = 1
+    var sum: Z = 1
 
-    var i: Z = 0
-    var sum: Z = 0
+    //prove invariant true before loop begins
+    l"""{
+        1. i == 1                       premise
+        2. sum == 1                     premise
+        3. sum == i*i                   algebra 1 2
+        //need sum == i*i
+    }"""
 
     while (i != n) {
+        l"""{
+            invariant sum == i*i
+            modifies sum, i
+        }"""
+
+        i = i + 1
+
+        //process i update
+        l"""{
+            1. i == i_old + 1           premise //change to i
+            2. sum == i_old*i_old       premise //the loop invariant
+            3. sum == (i-1)*(i-1)       algebra 1 2 //plug in for i_old
+            4. sum == i*i - 2*i + 1     algebra 3 //working with loop invariant
+        }"""
+
         var nextOdd: Z = 2*i - 1
         sum = sum + nextOdd
-        i = i + 1
+
+        l"""{
+            1. nextOdd == 2*i - 1       premise //variable assignment
+            2. sum == sum_old + nextOdd premise //variable assignment
+            3. sum_old == i*i - 2*i + 1 premise //previous version of working with loop invariant
+            4. sum - nextOdd == i*i - 2*i + 1   algebra 2 3
+            5. sum == i*i - 2*i + 1 + nextOdd   algebra 4
+            6. sum == i*i - 2*i + 1 + 2*i - 1   algebra 1 5
+            7. sum == i*i                       algebra 6
+        }"""
+
+        //show loop invariant still true
     }
+
+    //need to prove sum == n*n
+    l"""{
+        1. sum == i*i           premise // loop invariant is true
+        2. !(i != n)            premise // loop condition is false
+        3. i == n               algebra 2
+        4. sum == n*n           algebra 1 3
+    }"""
 
     return sum
 }
@@ -24,5 +70,23 @@ def sumOdds(n: Z): Z = {
 
 val pos: Z = 4
 
-//call sumOdds to get the sum of the 4th odd number
+//call sumOdds to get the sum of the 4 odd numbers
 //what do we want to assert that it is?
+
+//show we have satisfied the precondition
+l"""{
+    1. pos == 4                 premise
+    2. pos >= 1                 algebra 1
+    //need: pos >= 1
+}"""
+
+val test: Z = sumOdds(pos)
+
+//we can pull in the postcondition
+l"""{
+    1. test == pos*pos              premise //the postcondition
+    2. pos == 4                     premise
+    3. test == 16                   algebra 1 2
+}"""
+
+assert(test == 16)

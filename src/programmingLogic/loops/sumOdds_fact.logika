@@ -1,0 +1,83 @@
+import org.sireum.logika._
+
+l"""{
+    fact
+        def sumOddsDef(n: Z): Z
+            sumOne. sumOddsDef(1) == 1
+            sumMore.  ∀x: Z  x > 1 → sumOddsDef(x) == sumOddsDef(x - 1) + 2*x-1
+}"""
+
+//returns the sum of the first n odd numbers
+def sumOdds(n: Z): Z = {
+    l"""{
+        requires n >= 1
+        ensures result == n*n
+    }"""
+
+    var sum: Z = 1
+    var count: Z = 1
+
+    //show both invariants are true before the loop begins
+    l"""{
+        1. sum == 1             premise
+        2. count == 1           premise
+        4. sum == count*count   algebra 1 2
+    }"""
+
+    while (count != n) {
+        l"""{
+            invariant sum == count*count
+            modifies sum, count
+        }"""
+
+        count = count + 1
+        l"""{
+            1. count == count_old + 1               premise
+            2. sum == count_old*count_old           premise
+            3. sum == (count-1)*(count-1)           algebra 1 2
+            4. sum == count*count - 2*count + 1     algebra 3
+        }"""
+
+        var nextOdd: Z = 2*count - 1
+        sum = sum + nextOdd
+
+        l"""{
+            1. nextOdd == 2*count - 1                           premise
+            2. sum == sum_old + nextOdd                         premise
+            3. sum_old == count*count - 2*count + 1             premise
+            4. sum == count*count - 2*count + 1 + 2*count - 1   algebra 1 2 3
+            5. sum == count*count                               algebra 4
+        }"""
+    }
+
+    //need to show the postcondition
+    l"""{
+        1. sum == count*count                   premise
+        3. !(count != n)                        premise
+        4. count == n                           algebra 3
+        5. sum == n*n                           algebra 1 4
+    }"""
+
+    return sum
+}
+
+/////////// Test code ////////////////
+
+var num: Z = 3
+
+//we must show the precondition is true
+l"""{
+    1. num == 3                 premise
+    2. num >= 1                 algebra 1
+}"""
+
+var test: Z = sumOdds(num)
+//can use the postcondition as a premise here
+l"""{
+    1. test == num*num          premise
+    2. num == 3                 premise
+    3. test = 9                 algebra 1 2
+}"""
+
+//what do we want to assert?
+assert(test == 9)
