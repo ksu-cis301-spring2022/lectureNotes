@@ -118,6 +118,6 @@ factDef(3) = factDef(2)*3
 
 //////////////////////////////////
 
-Tuesday:
+On Tuesday:
     - how do we come up with invariants?
     - exam 3 review
