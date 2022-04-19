@@ -7,6 +7,12 @@ l"""{
             sumMore.  ∀x: Z  x > 1 → sumOddsDef(x) == sumOddsDef(x - 1) + 2*x-1
 }"""
 
+//NOTE: This function still uses the n*n expression for
+//the postcondition.
+//As a practice problem, try redoing the function contract/
+//loop invariant/logic blocks to use the above Logika
+//fact instead of the n*n calculation.
+
 //returns the sum of the first n odd numbers
 def sumOdds(n: Z): Z = {
     l"""{
