@@ -1,0 +1,70 @@
+import org.sireum.logika._
+
+//What is this Logika fact saying?
+
+//add all elements from position 0 up to but not including pos
+//sum(seq, seq.size) - defines adding ALL elements in seq
+
+l"""{
+    fact
+        def sum(seq: ZS, pos: Z): Z
+            = 0, if pos == 0                                    (sum0)
+            = seq(pos-1) + sum(seq, pos-1), if pos > 0          (sumN)
+}"""
+
+//seq was ZS(5,4,2)
+//sum(seq, seq.size)
+    // = 2 + sum(seq, 2)
+        // = 1 + sum(seq, 1)
+            // = 5 + sum(seq, 0)
+
+
+//OR, we could write the Logika fact this way...but I think it is
+    //hard to read
+/*
+l"""{
+    fact
+        def sum(seq: ZS, pos: Z): Z
+            sum0. A list: ZS sum(list, 0) == 0
+            sumN. A list: ZS (A x: Z x > 0 -> sum(list, x) == sum(list, x-1) + list(x-1))
+}"""
+*/
+
+def seqSum(list: ZS): Z = {
+    l"""{
+        //function contract
+        ensures
+            result == sum(list, list.size)
+    }"""
+
+    //how should we write the code?
+    var i: Z = 0
+    var total: Z = 0
+
+    while (i < list.size) {
+        l"""{
+            invariant
+                //total is the sum of the first i elements
+                //total = list(0) + list(1) + ... + list(i-1)
+                total == sum(list, i)
+                i >= 0
+                i <= list.size
+            modifies total, i
+        }"""
+
+        total = total + list(i)
+        i = i + 1
+    }
+
+    //don't forget the loop invariant block
+
+    return total
+}
+
+////////////// Calling code ///////////////////
+
+var test: ZS = ZS(1,2,3,4)
+var added: Z = seqSum(test)
+
+//what should added be now?
+assert(added == 10)

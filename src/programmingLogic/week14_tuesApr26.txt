@@ -1,0 +1,81 @@
+Exam 3 breakdown.
+
+Average before entering zeroes : 78%
+    (average after entering zeroes: 73%)
+High: 80/80 (several students)
+
+A (72-80): 28 students (!!!)
+B (64-71): 3 students
+C (56-63): 11 students
+D (48-55): 6 students
+F (below 48): 18 students
+
+/////////////////////////////////////
+
+Look at exam
+
+////////////////////////////////////
+
+HW 12 due Thursday, April 28
+
+One more homework assignment after that
+
+Final exam: Tuesday, May 10, 2:00-3:50 pm
+
+/////////////////////////////////////
+
+Logika modes.
+
+Default/manual mode - what we've been doing.
+
+SymExe mode - only needs function contracts and invariant blocks.
+    --> can do all intermediate reasoning itself.
+
+**See how to switch modes
+
+For SymExe:
+
+File->Settings->Tools->Sireum->Logika
+    Auto is checked
+    Checker kind is "summarizing symexe"
+
+////////////////////////////
+
+Example: redo sumOdds with a Logika fact and symexe
+
+
+
+
+///////////////////////////
+
+Example: multiplication, but using a Logika fact
+
+result == m*n
+
+////////////////////////////
+
+Sequences. (like an array or list)
+
+--> see Logika sequence operations
+
+--> sequences are passed to a function by reference
+    --> postcondition should describe how a sequence changes
+
+///////////////////////////
+
+Example: function that sets first element in a sequence to 0
+
+
+
+//////////////////////////
+
+Functions with sequences and loops.
+--> same idea, but loop invariant block needs to describe
+    what has been changed so far about the sequence (and what
+    has not been changed)
+
+Example: function that sets every position in a sequence to 10
+
+/////////////////////////
+
+Example: function that returns the sum of all sequence elements

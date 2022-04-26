@@ -1,0 +1,49 @@
+import org.sireum.logika._
+
+l"""{
+    fact
+        def sumOddsDef(n: Z): Z
+            sumOne. sumOddsDef(1) == 1
+            sumMore.  ∀x: Z  x > 1 → sumOddsDef(x) == sumOddsDef(x - 1) + 2*x-1
+}"""
+
+//NOTE: This function still uses the n*n expression for
+//the postcondition.
+//As a practice problem, try redoing the function contract/
+//loop invariant/logic blocks to use the above Logika
+//fact instead of the n*n calculation.
+
+//returns the sum of the first n odd numbers
+def sumOdds(n: Z): Z = {
+    l"""{
+        requires n >= 1
+        ensures result == sumOddsDef(n)
+    }"""
+
+    var sum: Z = 1
+    var count: Z = 1
+
+    while (count != n) {
+        l"""{
+            invariant sum == sumOddsDef(count)
+                count >= 1
+            modifies sum, count
+        }"""
+
+        count = count + 1
+
+        var nextOdd: Z = 2*count - 1
+        sum = sum + nextOdd
+    }
+
+    return sum
+}
+
+/////////// Test code ////////////////
+
+var num: Z = 3
+
+var test: Z = sumOdds(num)
+
+//what do we want to assert?
+assert(test == 9)

@@ -1,0 +1,45 @@
+import org.sireum.logika._
+
+l"""{
+    fact
+        //defines m * n = m + m + ... + m (n times)
+        def multDef(m: Z, n: Z): Z
+            //anything multiplied by 0 is just 0
+            mult0. A x: Z multDef(x, 0) == 0
+            multPos. A x: Z (A y: Z y > 0 -> multDef(x, y) == multDef(x, y-1) + x)
+}"""
+
+
+//want to find: num1 + num1 + ... + num1 (a total of num2 times)
+def mult(num1: Z, num2: Z): Z = {
+    l"""{
+        //need to complete
+        requires num2 >= 0
+        ensures result == multDef(num1, num2)
+    }"""
+
+    var answer: Z = 0
+    var cur: Z = 0
+
+    while (cur != num2) {
+        l"""{
+            //need to complete
+            invariant
+                answer == multDef(num1, cur)
+                cur >= 0
+            modifies cur, answer
+        }"""
+        cur = cur + 1
+        answer = answer + num1
+    }
+
+    return answer
+}
+
+//////// Test code ///////////
+
+var a: Z = 3
+var b: Z = 4
+var times: Z = mult(a, b)
+
+assert(times == 12)
