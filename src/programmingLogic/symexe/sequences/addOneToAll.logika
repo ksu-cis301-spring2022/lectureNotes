@@ -1,0 +1,45 @@
+import org.sireum.logika._
+
+def addOne(list: ZS): Unit = {
+    l"""{
+        //function contract
+        modifies list
+        ensures
+            list.size == list_in.size
+            A x: (0..<list.size) list(x) == list_in(x) + 1
+    }"""
+
+    //how should we write the code?
+
+    var i: Z = 0
+    while (i < list.size) {
+        l"""{
+            invariant
+                i >= 0
+                i <= list.size
+                list.size == list_in.size
+
+                //what I HAVE changed
+                A x:(0..<i) list(x) == list_in(x) + 1
+
+                //what I haven't changed
+                A x: (i..<list.size) list(x) == list_in(x)
+
+            modifies list, i
+        }"""
+
+
+        list(i) = list(i) + 1
+        i = i + 1
+    }
+
+    //don't forget the loop invariant block
+}
+
+////////////// Calling code ///////////////////
+
+var test: ZS = ZS(1,2,3,4)
+addOne(test)
+
+//what *should* test be now?
+assert(test == ZS(2,3,4,5))

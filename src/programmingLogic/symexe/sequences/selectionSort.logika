@@ -1,0 +1,138 @@
+import org.sireum.logika._
+
+//we already wrote this
+def swap(list: ZS, pos1: Z, pos2: Z): Unit = {
+    l"""{
+            //fill in the function contract
+            requires pos1 >= 0
+                pos2 >= 0
+                pos1 < list.size
+                pos2 < list.size
+            modifies list
+            ensures
+                list(pos1) == list_in(pos2)
+                list(pos2) == list_in(pos1)
+                list.size == list_in.size
+
+                //all the other spots stay the same
+                A x:(0..<list.size) (x != pos1 ^ x != pos2) -> list(x) == list_in(x)
+        }"""
+
+    //How would we swap two positions?
+    var temp: Z = list(pos1)
+    list(pos1) = list(pos2)
+    list(pos2) = temp
+}
+
+//start is a starting position in the list
+//return the position of the smallest element from position start on
+//(smallest position in unsorted section)
+def minPos(list: ZS, start: Z): Z = {
+    l"""{
+        //COMPLETE THE FUNCTION CONTRACT
+        requires
+            start >= 0
+            start < list.size
+        ensures
+            //result is <= every element in list
+            A x: (start..<list.size) list(result) <= list(x)
+
+            //the thing I'm returning really is a list element
+            //there exists a list element that matches my result
+
+            E x: (start..<list.size) list(result) == list(x)
+
+            //return value range: start to the end of the list
+            result >= start
+            result < list.size
+    }"""
+
+    var i: Z = start + 1
+    var smallPos: Z = start
+    while (i < list.size) {
+        l"""{
+            invariant
+                i <= list.size
+                i >= start+1
+
+                //small is the smallest up to position i
+                A x: (start..<i) list(smallPos) <= list(x)
+
+                //small is one of the elements up to position i
+                E x: (start..<i) list(smallPos) == list(x)
+
+                //the range of smallPos
+                smallPos >= start
+                smallPos < i
+            modifies small, i
+        }"""
+
+        if (list(i) < list(smallPos)) {
+            smallPos = i
+        }
+
+        i = i + 1
+    }
+
+    return smallPos
+}
+
+def selectionSort(nums: ZS): Unit = {
+    l"""{
+        requires nums.size > 0
+            //no duplicates allowed to make it easier
+            A x: (0..<nums.size) A y: (0..<nums.size) ((nums(x) == nums(y)) -> (x == y))
+        modifies nums
+        ensures
+            //COMPLETE THE POSTCONDITIONS
+
+            //the resulting list is sorted
+            //every item in the original list is still in the result list
+            //size shouldn't change
+
+            //every element in the result list was in the original list
+    }"""
+
+    //want to initially place the smallest value at pos i
+    var i: Z = 0
+    while (i < nums.size-1) {
+        l"""{
+            invariant
+                //COMPLETE THE INVARIANTS
+
+                //the part I've loop through is sorted (up to position i)
+
+                //the size doesn't change
+
+                //every item in the original list is still in the result list
+
+                //every element in the result list was in the original list
+
+                //every item in the sorted section <= every item in the unprocessed section
+        }"""
+
+        //why have we met the preconditions for curMinPos?
+
+
+        //give me the pos of the smallest element in the unsorted section
+        //from pos i on
+        var curMinPos: Z = minPos(nums, i)
+
+        //why have we met the preconditions for swap?
+
+
+        swap(nums, i, curMinPos)
+
+
+        i = i + 1
+    }
+}
+
+///////// Test code /////////////
+
+var test: ZS = ZS(4,3,2,1)
+selectionSort(test)
+
+print(test)
+
+assert(test == ZS(1,2,3,4))

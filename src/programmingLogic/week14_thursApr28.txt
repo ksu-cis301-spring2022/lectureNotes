@@ -1,0 +1,84 @@
+HW 12 due tonight
+
+HW 13 (last HW) will be posted after class -
+    due Thursday, May 5
+
+Final exam: Tuesday, May 10, 2:00-3:50 pm
+
+//////////////////////////////////////
+
+Today: more with sequences
+
+//////////////////////////////////////
+
+Function contract when a sequence is a parameter:
+    - what to require, in general?
+        if using Logika fact, make sure parameter fits into the range allowed
+        does the sequence need to have at least a certain number of items?
+        do I need to make an assumption about the values/ranges in the sequence?
+
+    - "modifies"?
+        if we are changing a sequence parameter
+
+    - postcondition?
+        if the sequence changes, describe WHAT elements change at what
+        their new values are (maybe in comparison to seq_in)
+
+            say the seq size doesn't change
+
+        also, specify what elements stay the same
+
+        if we are returning something, need a statement about result
+
+
+Loop invariant when working with a sequence:
+    - invariant:
+        - loop counter?
+            the bottom bound and the top bound of the loop counter
+
+            a lot of times:
+                i >= 0
+                i <= seq.size
+
+        - sequence?
+            describe what elements you have changed so far
+
+            sometimes, also describe what elements haven't changed yet
+
+            say the seq size doesn't change (if the seq changes)
+
+    - modifies? any variable that changes, including any sequence that changes
+
+
+How to specify a range of spots in the sequence?
+
+    all elements in a sequence called test have the value 0
+
+    A x: (0..<test.size) test(x) == 0
+
+
+Can also do refer to specific spots using ->:
+
+   all elements in a sequence called test that were originally negative
+   are now 0
+
+   A x: (0..<test.size) (test_in(x) < 0) -> test(x) == 0
+
+///////////////////////////////
+
+Write a swap function for a sequence
+
+//////////////////////////////
+
+Verify a function that adds 1 to all elements in a sequence
+
+
+/////////////////////////////
+
+
+Write a function that returns the min element of a sequence
+
+
+/////////////////////////////
+
+selection sort - will finish on
