@@ -84,7 +84,7 @@ def selectionSort(nums: ZS): Unit = {
             A x: (0..<nums.size) A y: (0..<nums.size) ((nums(x) == nums(y)) -> (x == y))
         modifies nums
         ensures
-            //COMPLETE THE POSTCONDITIONS
+            //WE WILL COMPLETE THE POSTCONDITIONS on TUESDAY
 
             //the resulting list is sorted
             //every item in the original list is still in the result list
