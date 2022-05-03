@@ -10,12 +10,12 @@ def swap(list: ZS, pos1: Z, pos2: Z): Unit = {
                 pos2 < list.size
             modifies list
             ensures
-                list(pos1) == list_in(pos2)
-                list(pos2) == list_in(pos1)
-                list.size == list_in.size
+                list(pos1) = list_in(pos2)
+                list(pos2) = list_in(pos1)
+                list.size = list_in.size
 
                 //all the other spots stay the same
-                A x:(0..<list.size) (x != pos1 ^ x != pos2) -> list(x) == list_in(x)
+                A x:(0..<list.size) (x != pos1 ^ x != pos2) -> list(x) = list_in(x)
         }"""
 
     //How would we swap two positions?
@@ -40,7 +40,7 @@ def minPos(list: ZS, start: Z): Z = {
             //the thing I'm returning really is a list element
             //there exists a list element that matches my result
 
-            E x: (start..<list.size) list(result) == list(x)
+            E x: (start..<list.size) list(result) = list(x)
 
             //return value range: start to the end of the list
             result >= start
@@ -59,12 +59,12 @@ def minPos(list: ZS, start: Z): Z = {
                 A x: (start..<i) list(smallPos) <= list(x)
 
                 //small is one of the elements up to position i
-                E x: (start..<i) list(smallPos) == list(x)
+                E x: (start..<i) list(smallPos) = list(x)
 
                 //the range of smallPos
                 smallPos >= start
                 smallPos < i
-            modifies small, i
+            modifies smallPos, i
         }"""
 
         if (list(i) < list(smallPos)) {
@@ -81,16 +81,20 @@ def selectionSort(nums: ZS): Unit = {
     l"""{
         requires nums.size > 0
             //no duplicates allowed to make it easier
-            A x: (0..<nums.size) A y: (0..<nums.size) ((nums(x) == nums(y)) -> (x == y))
+            A x: (0..<nums.size) A y: (0..<nums.size) ((nums(x) = nums(y)) -> (x = y))
         modifies nums
         ensures
             //WE WILL COMPLETE THE POSTCONDITIONS on TUESDAY
 
             //the resulting list is sorted
-            //every item in the original list is still in the result list
-            //size shouldn't change
+            A x: (1..<nums.size) nums(x-1) <= nums(x)
 
-            //every element in the result list was in the original list
+            //every item in the original list is still in the result list
+            A x: (0..<nums.size) (E y: (0..<nums.size) nums_in(x) = nums(y))
+
+            //size shouldn't change
+            nums_in.size = nums.size
+
     }"""
 
     //want to initially place the smallest value at pos i
@@ -101,30 +105,36 @@ def selectionSort(nums: ZS): Unit = {
                 //COMPLETE THE INVARIANTS
 
                 //the part I've loop through is sorted (up to position i)
+                A x: (1..<i) nums(x-1) <= nums(x)
 
                 //the size doesn't change
+                nums.size = nums_in.size
+
+                //what to do with i? (bounded it)
+                i >= 0
+                i <= nums.size-1
 
                 //every item in the original list is still in the result list
-
-                //every element in the result list was in the original list
-
+                A x: (0..<nums.size) (E y: (0..<nums.size) nums_in(x) = nums(y))
+                
                 //every item in the sorted section <= every item in the unprocessed section
+                A x: (0..<i) (A y: (i..<nums.size) nums(x) <= nums(y))
+
+            modifies i, nums
         }"""
-
-        //why have we met the preconditions for curMinPos?
-
 
         //give me the pos of the smallest element in the unsorted section
         //from pos i on
+
+        //why have we met the preconditions for curMinPos?
         var curMinPos: Z = minPos(nums, i)
 
         //why have we met the preconditions for swap?
-
-
         swap(nums, i, curMinPos)
 
-
         i = i + 1
+
+        //why does the invariant still hold?
     }
 }
 

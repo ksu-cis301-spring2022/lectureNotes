@@ -1,0 +1,99 @@
+//SYMEXE MODE
+
+import org.sireum.logika._
+
+//what does this fact say?
+l"""{
+    fact
+        def sumPasses(list: BS, pos: Z): Z
+            = 0, if pos == 0        (sum0)
+            = 1 + sumPasses(list, pos-1),
+                if pos >= 1 ^ list(pos-1)   (sumTrue)
+            = sumPasses(list, pos-1),
+                if pos >= 1 ^ !list(pos-1)   (sumFalse)
+}"""
+
+val totalPasses: Z = 3
+var passesAvailable: Z = totalPasses
+
+//5 students in the class
+var passesOut: BS = BS(false,false,false,false,false)
+
+
+
+l"""{
+    invariant
+        //LIST THE GLOBAL INVARIANTS
+        passesAvailable >= 0
+        passesAvailable <= totalPasses
+        totalPasses == passesAvailable + sumPasses(passesOut, passesOut.size)
+        passesOut.size == 5
+}"""
+
+def takeHallPass(studentPos: Z): Unit = {
+    l"""{
+        //WRITE THE FUNCTION CONTRACT
+        requires
+            studentPos >= 0
+            studentPos < passesOut.size
+            passesOut(studentPos) == false
+            passesAvailable > 0
+        modifies passesOut, passesAvailable
+        ensures
+            passesOut(studentPos) == true
+            passesAvailable == passesAvailable_in - 1
+    }"""
+    passesOut(studentPos) = true
+    passesAvailable = passesAvailable - 1
+}
+
+def returnHallPass(studentPos: Z): Unit = {
+    l"""{
+        //WRITE THE FUNCTION CONTRACT
+        requires
+            studentPos >= 0
+            studentPos < passesOut.size
+            passesOut(studentPos) == true
+            passesAvailable < totalPasses
+        modifies passesOut, passesAvailable
+        ensures
+            passesOut(studentPos) == false
+            passesAvailable == passesAvailable_in + 1
+    }"""
+    passesOut(studentPos) = false
+    passesAvailable = passesAvailable + 1
+}
+
+
+/////// Test code //////////
+assert(passesAvailable == 3)
+
+takeHallPass(0)
+
+//what should we be able to assert?
+assert(passesOut == BS(true,false,false,false,false))
+assert(passesAvailable == 2)
+
+
+//what if I did takeHallPass(0) again?
+
+
+takeHallPass(2)
+
+//what should we be able to assert?
+//assert (passesOut == BS(true, false, true, false, false) & passesAvailable == 1)
+
+takeHallPass(4)
+//assert (passesOut == BS(true, false, true, false, true) & passesAvailable == 0)
+
+
+//what if I did takeHallPass(1) now?
+
+
+returnHallPass(2)
+
+//what do we know?
+
+returnHallPass(0)
+
+//what do we know?

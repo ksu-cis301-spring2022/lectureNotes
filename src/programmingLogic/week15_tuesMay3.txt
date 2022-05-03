@@ -1,0 +1,119 @@
+HW 13 (last HW) due Thursday, May 5
+
+Final exam: Tuesday, May 10, 2:00-3:50 pm
+    see review material posted yesterday
+    will spend some time reviewing Thursday
+
+Soudabeh will hold an additional review session -
+    vote on what time works best
+
+//////////////////////////////////////
+
+Today: finish selection sort
+
+
+
+////////////////////////////////////
+
+Global variables and global invariants.
+
+- Multiple functions might share the same global variables
+- (true for fields/properties when writing general classes)
+
+- Will add GLOBAL INVARIANTS specifying what must always be true
+    about global variables
+
+
+- If a function works with global variables:
+    - It can list the global invariants as PREMISES
+        at the beginning of the function
+    - It must PROVE the global invariants still hold
+        at the end of the function
+    - It should state how a global variable will change
+        by the end of the function compared to its original
+        (_in) value
+
+
+- In the calling code, if there are global invariants:
+    - Must show the global invariants hold before a function
+        call
+    - Can list global invariants as premises after returning
+        from a function call
+
+
+/////////////////////////////////////
+
+Bank example.
+
+Global variables:
+    - account balance
+    - "elite" status (a boolean for whether the balance is >= 1 million)
+
+Global invariants:
+    - balance should be non-negative
+    - elite status should match balance
+
+////////////////////////////////////
+
+Hall passes example
+
+--> What asserts can we make about the global invariants?
+
+
+///////////////////////////////////
+
+Programs with multiple functions, in practice:
+
+- If you are calling a function someone else wrote
+    - You probably can't see that code
+    - You want that function's specification (pre/post conditions)
+        to be as specific as possible
+
+- If you are writing a function
+    - Supply a GOOD specification
+    - Often best to write the specification before the code
+
+
+It is good to do this in the documentation even when your
+programs aren't formally verified.
+
+//////////////////////////////////////
+
+Assertions/specifications in Java
+
+--> remember that other programmers/users can only
+    see the documentation, not the code
+
+--> want to list preconditions/postconditions in the
+    documentation
+
+--> can test for any violations using assert statements
+
+
+compile as usual
+
+java -ea (file)
+
+public static int plus(int a, int b)
+    - preconditions?
+
+
+    - postconditions?
+
+
+
+public static void swap(int[] arr, int pos1, int pos2)
+    - preconditions?
+        pos1 >= 0, pos1 < arr.length, poss2 >
+
+    - postconditions?
+
+
+See documentation, run javadoc.
+
+////////////////////////////////
+
+Thursday:
+
+- briefly, termination and total correctness
+- then review for final exam
