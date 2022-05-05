@@ -1,0 +1,35 @@
+Use mathematical induction to prove that the following expression:
+
+    n(n+1)(n+5)
+
+Is a multiple of 3 for all integers n>=1.
+
+
+Before we start...what can we say about either n, n+1, or n+5?
+
+
+Base case: n = 1.
+    1(1+1)(1+5) = 1*2*6 = 12, and 12 is a multiple of 3.
+
+Inductive step. Assume n(n+1)(n+5) is a multiple of 3. We must show
+
+    (n+1)((n+1)+1)((n+1)+5)
+
+is a multiple of 3. We have that:
+
+(n+1)(n+2)(n+6) = (n^2 + 3n + 2)(n + 6)
+            = n^3 + 6n^2 + 3n^2 + 18n + 2n + 12
+            = n^3 + 9n^2 + 20n + 12
+            = n(n^2 + 9n + 20) + 12
+            = n(n+4)(n+5) + 12
+
+Since n(n+1)(n+5) is a multiple of 3, then either n, or n+1, or n+5 is
+a multiple of 3. If either n or n+5 was a multiple of 3, then n(n+4)(n+5)
+would also be a multiple of 3 (since it has n and n+5 as factors).
+
+If n+1 was a multiple of 3, then n+4 would also be a multiple of 3.
+
+In any case, n(n+4)(n+5) is a multiple of 3. Adding 12 (a multiple of 3)
+to another multiple 3 yields something that is still a multiple of 3.
+
+So n(n+4)(n+5) + 12 = (n+1)((n+1)+1)((n+1)+5) is still a multiple of 3.

@@ -1,0 +1,50 @@
+import org.sireum.logika._
+
+//Assume we are in SYMEXE mode
+
+//In the program below, complete the function contract and loop invariant block
+//so the program (including the assert at the bottom) would be verified in
+//Logika's symexe mode.
+
+def addToNeg(a: ZS, pos: Z): Unit = {
+    l"""{
+        //COMPLETE THE FUNCTION CONTRACT
+        requires pos >= 0 ^ pos < a.size
+        modifies a
+        ensures
+            A x: (pos..<a.size) a_in(x) < 0 -> a(x) == a_in(x) + 1
+            a.size == a_in.size
+            A x: (pos..<a.size) a_in(x) >= 0 -> a(x) == a_in(x)
+            A x: (0..<pos) a(x) == a_in(x)
+    }"""
+    var i: Z = pos
+
+    while (i < a.size) {
+        l"""{
+            //COMPLETE THE LOOP INVARIANT BLOCK
+            invariant
+                i >= pos
+                i <= a.size
+                a.size == a_in.size
+                A x: (0..<pos) a(x) == a_in(x)
+                A x: (pos..<i) a_in(x) < 0 -> a(x) == a_in(x) + 1
+                A x: (pos..<i) a_in(x) >= 0 -> a(x) == a_in(x)
+                A x: (i..<a.size) a(x) == a_in(x)
+                pos >= 0 ^ pos < a.size
+            modifies a, i
+        }"""
+
+        if (a(i) < 0) {
+            a(i) = a(i) + 1
+        }
+
+        i = i + 1
+    }
+}
+
+/////// Test code ////////////
+var test: ZS = ZS(-3, -4, 0, 1, -1, 5, 6, -7)
+
+addToNeg(test, 3)
+
+assert (test == ZS(-3, -4, 0, 1, 0, 5, 6, -6))
